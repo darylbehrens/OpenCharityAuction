@@ -12,8 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OpenCharityAuction.Entities", "src\OpenCharityAuction.Entities\OpenCharityAuction.Entities.xproj", "{B96AF1EF-85DC-4D3C-927E-DD352193A9B8}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OpenCharityAuction.Web", "src\OpenCharityAuction.Web\OpenCharityAuction.Web.xproj", "{84A0BECD-3D40-4841-B944-C502B1C263B3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,10 +22,6 @@ Global
 		{B96AF1EF-85DC-4D3C-927E-DD352193A9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B96AF1EF-85DC-4D3C-927E-DD352193A9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B96AF1EF-85DC-4D3C-927E-DD352193A9B8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
