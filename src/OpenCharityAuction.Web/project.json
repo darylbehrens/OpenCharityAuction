@@ -16,8 +16,9 @@
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final",
     "OpenCharityAuction.Entities": "1.0.0-*",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
-
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+    "Microsoft.AspNetCore.Identity": "1.0.0",
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0"
   },
 
   "tools": {

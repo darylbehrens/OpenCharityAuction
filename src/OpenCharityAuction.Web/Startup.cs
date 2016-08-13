@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.PlatformAbstractions;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace OpenCharityAuction.Web
 {
@@ -31,8 +32,15 @@ namespace OpenCharityAuction.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton(new Models.Configuration(config["app:appName"]));
             services.AddDbContext<Data.AuctionContext>(options => options.UseSqlServer(config["data:connectionstring"]));
+            services.AddDbContext<Data.UserContext>(options => options.UseSqlServer(config["data:connectionstring"]));
+
+            services.AddIdentity<Models.User, IdentityRole>()
+                .AddEntityFrameworkStores<Data.UserContext>()
+                .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +52,8 @@ namespace OpenCharityAuction.Web
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseIdentity();
 
             app.Run(async (context) =>
             {
