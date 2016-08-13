@@ -1,4 +1,5 @@
-﻿{
+{
+  "title": "Open Charity Auction",
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
@@ -16,6 +17,7 @@
     "Microsoft.EntityFrameworkCore.Tools": "1.0.0-preview2-final",
     "OpenCharityAuction.Entities": "1.0.0-*",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
+
   },
 
   "tools": {
