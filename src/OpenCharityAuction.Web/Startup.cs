@@ -41,6 +41,8 @@ namespace OpenCharityAuction.Web
                 .AddEntityFrameworkStores<Data.UserContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,10 +57,11 @@ namespace OpenCharityAuction.Web
 
             app.UseIdentity();
 
-            app.Run(async (context) =>
+            app.UseMvc(routes =>
             {
-                var myConfig = context.RequestServices.GetRequiredService<Models.Configuration>();
-                await context.Response.WriteAsync(myConfig.AppName);
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
