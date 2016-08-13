@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace OpenCharityAuction.Data
+namespace OpenCharityAuction.Web.Data
 {
     public class AuctionContext : DbContext
     {

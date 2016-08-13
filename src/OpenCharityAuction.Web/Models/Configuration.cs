@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenCharityAuction.Models
+namespace OpenCharityAuction.Web.Models
 {
     public class Configuration
     {
