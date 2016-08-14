@@ -9,7 +9,7 @@ namespace OpenCharityAuction.UnitTests.Models.Services
     
     public class TestUserService : IUserService
     {
-        public bool? boolReturn { get; set; } // To Set Bools 
+        public bool? boolReturn { get; set; } // To Test Different Bool Values
 
         public bool CheckIfThereAreAnyUsers()
         {

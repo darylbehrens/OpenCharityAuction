@@ -9,23 +9,40 @@ using Moq;
 using Microsoft.AspNetCore.Http;
 using Castle.Core.Logging;
 using OpenCharityAuction.Web.Models.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using OpenCharityAuction.Web.Models.Services;
 
 namespace OpenCharityAuction.UnitTests.Tests
 {
     public class AuthenitcationControllerTests
     {
-         IUserService UserService = new TestUserService();
+        private IUserService UserService;
 
         [Fact]
         public void Authetication_Test_InitialSetup_Should_Return_InitialSetup_View()
         {
-            var context = new Mock<HttpContext>();
-            var contextAccessor = new Mock<IHttpContextAccessor>();
-            contextAccessor.Setup(x => x.HttpContext).Returns(context.Object);
+            UserService = new TestUserService();
+            ((TestUserService)UserService).boolReturn = false;
 
+            var controller = ControllerFactory.GetAuthenticationController(UserService);
+            var result = controller.InitialSetup("PASSED");
+            Assert.IsType<ViewResult>(result);
+            var castedResult = result as ViewResult;
+            Assert.Equal(castedResult.ViewData["ReturnUrl"], "PASSED");
+        }
 
-            var controller = new AuthenticationController(new TestUserManager(), new TestSignInManager(contextAccessor.Object), new TestLoggerFactory(), UserService);
-            var result = controller.InitialSetup();
+        [Fact]
+        public void Authetication_Test_InitialSetup_Should_Return_Login_Redirect()
+        {
+            UserService = new TestUserService();
+            ((TestUserService)UserService).boolReturn = true;
+
+            var controller = ControllerFactory.GetAuthenticationController(UserService);
+            var result = controller.InitialSetup("PASSED");
+            Assert.IsType<RedirectToActionResult>(result);
+            var castedResult = result as RedirectToActionResult;
+            Assert.Equal(castedResult.ActionName, "Login");
+            Assert.Equal(castedResult.ControllerName, "Authentication");
         }
     }
 }
