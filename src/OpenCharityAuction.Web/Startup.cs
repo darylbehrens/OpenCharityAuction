@@ -37,6 +37,9 @@ namespace OpenCharityAuction.Web
             // Adds Config To Dependency Injection System
             services.AddSingleton(new Models.Configuration(Configuration["app:appName"]));
 
+            // User Data Service For Injection
+            services.AddTransient<Models.Interfaces.IUserService, Models.Services.UserService>();
+
             // Adds AuctionContext Connection String
             services.AddDbContext<Data.AuctionContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
 
@@ -73,12 +76,9 @@ namespace OpenCharityAuction.Web
             // Use MVC, route user to main page depending on status of install
             app.UseMvc(routes =>
             {
-                // Decide Where To Send User
-                string HomePage = string.Empty;
-                
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=InitialSetup}/{action=Index}/{id?}");
+                    template: "{controller=Authentication}/{action=InitialSetup}/{id?}");
             });
         }
     }
