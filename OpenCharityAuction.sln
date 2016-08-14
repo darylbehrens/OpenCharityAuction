@@ -14,6 +14,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OpenCharityAuction.Entities
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OpenCharityAuction.Web", "src\OpenCharityAuction.Web\OpenCharityAuction.Web.xproj", "{84A0BECD-3D40-4841-B944-C502B1C263B3}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "OpenCharityAuction.UnitTests", "src\OpenCharityAuction.UnitTests\OpenCharityAuction.UnitTests.xproj", "{32C9F7E7-002C-4FFD-A4D2-921E2929772E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84A0BECD-3D40-4841-B944-C502B1C263B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C9F7E7-002C-4FFD-A4D2-921E2929772E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C9F7E7-002C-4FFD-A4D2-921E2929772E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C9F7E7-002C-4FFD-A4D2-921E2929772E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C9F7E7-002C-4FFD-A4D2-921E2929772E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,5 +41,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{B96AF1EF-85DC-4D3C-927E-DD352193A9B8} = {30D1D0E7-27E5-45FD-A537-FB3A9187D851}
 		{84A0BECD-3D40-4841-B944-C502B1C263B3} = {30D1D0E7-27E5-45FD-A537-FB3A9187D851}
+		{32C9F7E7-002C-4FFD-A4D2-921E2929772E} = {30D1D0E7-27E5-45FD-A537-FB3A9187D851}
 	EndGlobalSection
 EndGlobal
