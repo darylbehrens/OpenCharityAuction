@@ -15,17 +15,17 @@ namespace OpenCharityAuction.Web.Controllers
 {
     public class AuthenticationController : Controller
     {
-        private readonly UserManager<Models.User> userManager;
-        private readonly SignInManager<Models.User> signInManager;
-        private readonly ILogger logger;
+        private readonly UserManager<Models.User> UserManager;
+        private readonly SignInManager<Models.User> SignInManager;
+        private readonly ILogger Logger;
         private readonly IUserService UserService;
 
-        public AuthenticationController(UserManager<Models.User> _userManager, SignInManager<Models.User> _signInManager, ILoggerFactory _loggerFactory, IUserService _userService)
+        public AuthenticationController(UserManager<Models.User> userManager, SignInManager<Models.User> signInManager, ILoggerFactory loggerFactory, IUserService userService)
         {
-            userManager = _userManager;
-            signInManager = _signInManager;
-            logger = _loggerFactory.CreateLogger<AuthenticationController>();
-            UserService = _userService;
+            UserManager = userManager;
+            SignInManager = signInManager;
+            Logger = loggerFactory.CreateLogger<AuthenticationController>();
+            UserService = userService;
         }
 
         [HttpGet]
@@ -52,7 +52,7 @@ namespace OpenCharityAuction.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = new Models.User { UserName = model.Email, Email = model.Email };
-                var result = await userManager.CreateAsync(user, model.Password);
+                var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=532713
@@ -61,8 +61,8 @@ namespace OpenCharityAuction.Web.Controllers
                     //var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
                     //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    logger.LogInformation(3, "User created a new account with password.");
+                    await SignInManager.SignInAsync(user, isPersistent: false);
+                    Logger.LogInformation(3, "User created a new account with password.");
                     //return RedirectToLocal(returnUrl);
                 }
                 //AddErrors(result);
@@ -76,8 +76,15 @@ namespace OpenCharityAuction.Web.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
-            return View();
+            if (SignInManager.IsSignedIn(User))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ViewData["ReturnUrl"] = returnUrl;
+                return View();
+            }
         }
 
         [HttpPost]
@@ -90,11 +97,11 @@ namespace OpenCharityAuction.Web.Controllers
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    logger.LogInformation(1, "User logged in.");
-                    return RedirectToLocal(returnUrl);
+                    Logger.LogInformation(1, "User logged in.");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -111,8 +118,8 @@ namespace OpenCharityAuction.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            await signInManager.SignOutAsync();
-            logger.LogInformation(4, "User logged out.");
+            await SignInManager.SignOutAsync();
+            Logger.LogInformation(4, "User logged out.");
             return RedirectToAction("Login", "Authentication");
         }
 
