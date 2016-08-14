@@ -65,6 +65,8 @@ namespace OpenCharityAuction.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
+
             // Uses Identity For Tokens
             app.UseIdentity();
 
@@ -76,7 +78,7 @@ namespace OpenCharityAuction.Web
                 
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=InitialSetup}/{action=Index}/{id?}");
             });
         }
     }

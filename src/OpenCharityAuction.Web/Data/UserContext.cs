@@ -9,8 +9,6 @@ namespace OpenCharityAuction.Web.Data
 {
     public class UserContext : IdentityDbContext<Models.User>
     {
-        private readonly Models.Configuration config;
-
         public UserContext(DbContextOptions options) : base(options)
         {
         }
