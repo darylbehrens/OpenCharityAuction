@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace OpenCharityAuction.Data
+namespace OpenCharityAuction.Web.Data
 {
     public class AuctionContext : DbContext
     {
@@ -18,6 +18,8 @@ namespace OpenCharityAuction.Data
         {
         }
 
-        public DbSet<Entities.Models.Bidder> Bidders { get; set; }
+        // public DbSet<Entities.Models.Bidder> Bidders { get; set; }
+
+        public DbSet<Entities.Models.Event> Events { get; set; }
     }
 }
