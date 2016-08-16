@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="~/lib/jquery.js"/>
+    <script type="text/javascript" src="~/lib/jquery-ui.js" />
     <link rel="stylesheet" href="~/lib/bootstrap.css"/>
     <link rel="stylesheet" href="~/css/main.css"/>
     <title>@ViewBag.Title</title>
@@ -35,5 +37,6 @@
             <p>&copy; 2016 - WebApplication3</p>
         </footer>
     </div>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
