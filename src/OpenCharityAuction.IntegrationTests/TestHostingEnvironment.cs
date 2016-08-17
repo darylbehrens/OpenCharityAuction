@@ -11,7 +11,6 @@ namespace Website.Tests
         {
             string shopPath =
                 Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\Website"));
-            ApplicationBasePath = shopPath;
         }
 
         public object GetData(string name)
