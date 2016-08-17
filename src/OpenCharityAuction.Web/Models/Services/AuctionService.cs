@@ -21,7 +21,6 @@ namespace OpenCharityAuction.Web.Models.Services
             newEvent.CreateDate = DateTime.UtcNow.Date;
             AuctionContext.Events.Add(newEvent);
             await AuctionContext.SaveChangesAsync();
-            await Task.Run(() => System.Threading.Thread.Sleep(10000));
 
             // Send CallBack if not null
             callback?.Invoke(newEvent);

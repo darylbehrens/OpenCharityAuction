@@ -29,5 +29,24 @@ namespace OpenCharityAuction.UnitTests.Tests
             var castedResult = result as ViewResult;
             Assert.Equal(castedResult.ViewName, "AddEvent");
         }
+
+        [Fact]
+        public async void Add_Event_Fails_Validation_Should_Pass_Validation_Return_Redirect()
+        {
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+
+            // Did not fill out event info
+            AddEventViewModel testEvent = new AddEventViewModel()
+            {
+                EventDate = DateTime.Now,
+                EventName = "Test"
+            };
+
+            var result = await controller.AddEvent(testEvent);
+            Assert.IsType<RedirectToActionResult>(result);
+            var castedResult = result as RedirectToActionResult;
+            Assert.Equal(castedResult.ActionName, "Index");
+            Assert.Equal(castedResult.ControllerName, "Event");
+        }
     }
 }

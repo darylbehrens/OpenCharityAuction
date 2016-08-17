@@ -16,7 +16,5 @@ namespace OpenCharityAuction.Web.ViewModels
         [DataType(DataType.Date)]
         [Display(Name = "Event Date")]
         public DateTime? EventDate { get; set; }
-
-        public string UserId { get; set; }
     }
 }
