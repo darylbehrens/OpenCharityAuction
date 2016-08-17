@@ -12,4 +12,7 @@ gulp.task('default', function () {
     gulp.src("./node_modules/jqueryui/jquery-ui.js").pipe(gulp.dest("./wwwroot/lib"));
     gulp.src("./node_modules/jqueryui/jquery-ui.css").pipe(gulp.dest("./wwwroot/lib"));
     gulp.src("./Scripts/main.js").pipe(gulp.dest("./wwwroot/scripts"));
+    gulp.src("./node_modules/jquery-validation/dist/jquery.validate.js").pipe(gulp.dest("./wwwroot/lib"));
+    gulp.src("./node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js").pipe(gulp.dest("./wwwroot/lib"));
+    gulp.src("./node_modules/jqueryui/images/*").pipe(gulp.dest("./wwwroot/lib/images"));
 });

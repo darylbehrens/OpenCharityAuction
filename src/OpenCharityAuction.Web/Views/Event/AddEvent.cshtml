@@ -5,7 +5,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<form asp-controller="Event" asp-action="AddEvent" method="post" class="form-horizontal">
+<form asp-controller="Event" asp-action="AddEvent" method="post" class="form-horizontal", onsubmit="disableButton();" id="form">
     <div class="form-group">
         <label asp-for="EventName" class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
@@ -16,12 +16,12 @@
     <div class="form-group">
         <label asp-for="EventDate" class="col-sm-2 control-label"></label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" asp-for="EventDate" />
+            <input type="text" class="form-control" asp-for="EventDate"/>
             <span asp-validation-for="EventDate" class="text-danger"></span>
         </div>
     </div>
     <div class="col-md-offset-2 col-md-10">
-        <input type="submit" />
+        <input type="submit" id="button"/>
     </div>
 </form>
 @section Scripts {
@@ -31,4 +31,5 @@
             $("#EventDate").datepicker();
         });
     </script>
+    <script src="~/scripts/main.js" type="text/javascript"></script>
 }
