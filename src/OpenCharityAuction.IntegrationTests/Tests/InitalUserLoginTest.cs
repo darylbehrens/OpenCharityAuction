@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.PlatformAbstractions;
+using Newtonsoft.Json;
+using OpenCharityAuction.Entities.Models;
 using OpenCharityAuction.Web;
+using OpenCharityAuction.Web.Controllers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +25,7 @@ namespace OpenCharityAuction.IntegrationTests.Tests
             var path = Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory());
             var setDir = Path.GetFullPath(Path.Combine(path, "OpenCharityAuction.Web/"));
 
-            var builder = new WebHostBuilder().UseContentRoot(setDir).UseStartup<Startup>();
+            var builder = new WebHostBuilder().UseContentRoot(setDir).UseStartup<TestStartup>();
             
             server = new TestServer(builder);
             client = server.CreateClient();
@@ -31,7 +34,15 @@ namespace OpenCharityAuction.IntegrationTests.Tests
         [Fact]
         public async void TestInitialSetup()
         {
-            var response = await client.GetAsync("/Home/Index");
+            Event newEvent = new Event()
+            {
+                EventDate = DateTime.Now,
+                EventName = "TEST;"
+            };
+
+
+            var content = JsonConvert.SerializeObject(newEvent).ToString();
+            var response = await client.PostAsync("/Event/AddEvent", new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
             response.EnsureSuccessStatusCode();
         }
     }

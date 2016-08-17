@@ -43,11 +43,11 @@ namespace OpenCharityAuction.Web
             // Auction Data Service For Injection
             services.AddTransient<Models.Interfaces.IAuctionService, Models.Services.AuctionService>();
 
-            // Adds AuctionContext Connection String
-            services.AddDbContext<Data.AuctionContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
+            SetUpDatabase(services);
 
             // Adds UserContext Connection String
             services.AddDbContext<Data.UserContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
+            
 
             // Adds ASP Identity Roles
             services.AddIdentity<Models.User, IdentityRole>()
@@ -57,6 +57,12 @@ namespace OpenCharityAuction.Web
             // Adds MVC
             services.AddMvc();
 
+        }
+
+        public virtual void SetUpDatabase(IServiceCollection services)
+        {
+            // Adds AuctionContext Connection String
+            services.AddDbContext<Data.AuctionContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
