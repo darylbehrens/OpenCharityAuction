@@ -14,21 +14,23 @@ namespace OpenCharityAuction.Web.Controllers
     public class EventController : Controller
     {
         private readonly IAuctionService AuctionService;
+        private readonly IUserService UserService;
 
-        public EventController(IAuctionService auctionService)
+        public EventController(IAuctionService auctionService, IUserService userService)
         {
             AuctionService = auctionService;
+            UserService = userService;
         }
 
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult AddEvent()
         {
-            return View();
+            return View("AddEvent");
         }
 
         [HttpPost]
@@ -41,13 +43,13 @@ namespace OpenCharityAuction.Web.Controllers
                 {
                     EventDate = model.EventDate.Value,
                     EventName = model.EventName,
-                    CreatedBy = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                    CreatedBy = UserService.GetUserId()
                 };
                 Entities.Models.Event testEvent;
                 await AuctionService.AddEvent(newEvent, ev => testEvent = ev);
                 return RedirectToAction("Index", "Event");
             }
-            return View(model);
+            return View("AddEvent", model);
        
         }
     }

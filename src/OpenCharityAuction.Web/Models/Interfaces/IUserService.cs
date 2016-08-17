@@ -8,5 +8,7 @@ namespace OpenCharityAuction.Web.Models.Interfaces
     public interface IUserService
     {
         bool CheckIfThereAreAnyUsers();
+
+        string GetUserId();
     }
 }

@@ -22,5 +22,10 @@ namespace OpenCharityAuction.UnitTests.Models.Services
                 return true;
             }
         }
+
+        public string GetUserId()
+        {
+            return "testUser";
+        }
     }
 }

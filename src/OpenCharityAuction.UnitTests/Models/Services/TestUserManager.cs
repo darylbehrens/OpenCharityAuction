@@ -22,8 +22,7 @@ namespace OpenCharityAuction.UnitTests.Models.Services
               new Mock<ILookupNormalizer>().Object,
               new Mock<IdentityErrorDescriber>().Object,
               new Mock<IServiceProvider>().Object,
-              new Mock<ILogger<UserManager<User>>>().Object)
-    { }
+              new Mock<ILogger<UserManager<User>>>().Object) { }
 
         public override Task<IdentityResult> CreateAsync(User user, string password)
         {
