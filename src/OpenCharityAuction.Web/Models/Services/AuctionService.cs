@@ -16,11 +16,11 @@ namespace OpenCharityAuction.Web.Models.Services
             AuctionContext = context;
         }
 
-        public void AddEvent(Event newEvent, Action<Event> callback = null)
+        public async Task AddEvent(Event newEvent, Action<Event> callback = null)
         {
             newEvent.CreateDate = DateTime.UtcNow.Date;
             AuctionContext.Events.Add(newEvent);
-            AuctionContext.SaveChanges();
+            await AuctionContext.SaveChangesAsync();
 
             // Send CallBack if not null
             callback?.Invoke(newEvent);

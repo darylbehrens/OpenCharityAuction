@@ -33,7 +33,7 @@ namespace OpenCharityAuction.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddEvent(AddEventViewModel model)
+        public async Task<IActionResult> AddEvent(AddEventViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +44,7 @@ namespace OpenCharityAuction.Web.Controllers
                     CreatedBy = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
                 };
                 Entities.Models.Event testEvent;
-                AuctionService.AddEvent(newEvent, ev => testEvent = ev);
+                await AuctionService.AddEvent(newEvent, ev => testEvent = ev);
                 return RedirectToAction("Index", "Event");
             }
             return View(model);
