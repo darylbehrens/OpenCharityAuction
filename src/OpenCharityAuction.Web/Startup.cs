@@ -40,6 +40,9 @@ namespace OpenCharityAuction.Web
             // User Data Service For Injection
             services.AddTransient<Models.Interfaces.IUserService, Models.Services.UserService>();
 
+            // Auction Data Service For Injection
+            services.AddTransient<Models.Interfaces.IAuctionService, Models.Services.AuctionService>();
+
             // Adds AuctionContext Connection String
             services.AddDbContext<Data.AuctionContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
 

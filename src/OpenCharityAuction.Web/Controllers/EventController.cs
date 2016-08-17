@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using OpenCharityAuction.Web.ViewModels;
-using OpenCharityAuction.Web.Data;
+using System.Security.Claims;
+using OpenCharityAuction.Web.Models.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,11 +13,11 @@ namespace OpenCharityAuction.Web.Controllers
 {
     public class EventController : Controller
     {
-        private readonly AuctionContext Context;
+        private readonly IAuctionService AuctionService;
 
-        public EventController(AuctionContext context)
+        public EventController(IAuctionService auctionService)
         {
-            Context = context;
+            AuctionService = auctionService;
         }
 
         // GET: /<controller>/
@@ -36,7 +37,14 @@ namespace OpenCharityAuction.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var mod = model;
+                Entities.Models.Event newEvent = new Entities.Models.Event()
+                {
+                    EventDate = model.EventDate.Value,
+                    EventName = model.EventName,
+                    CreatedBy = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                };
+                Entities.Models.Event testEvent;
+                AuctionService.AddEvent(newEvent, ev => testEvent = ev);
                 return RedirectToAction("Index", "Event");
             }
             return View(model);

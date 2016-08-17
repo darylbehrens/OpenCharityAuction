@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OpenCharityAuction.Entities.Models;
 
 namespace OpenCharityAuction.Web.Models.Services
 {
@@ -13,6 +14,16 @@ namespace OpenCharityAuction.Web.Models.Services
         public AuctionService(Data.AuctionContext context)
         {
             AuctionContext = context;
+        }
+
+        public void AddEvent(Event newEvent, Action<Event> callback = null)
+        {
+            newEvent.CreateDate = DateTime.UtcNow.Date;
+            AuctionContext.Events.Add(newEvent);
+            AuctionContext.SaveChanges();
+
+            // Send CallBack if not null
+            callback?.Invoke(newEvent);
         }
     }
 }
