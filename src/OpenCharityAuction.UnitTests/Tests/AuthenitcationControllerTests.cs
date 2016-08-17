@@ -19,6 +19,7 @@ namespace OpenCharityAuction.UnitTests.Tests
         private IUserService UserService;
 
         [Fact]
+        [Trait("TestType", "Unit")]
         public void Authetication_Test_InitialSetup_Should_Return_InitialSetup_View()
         {
             UserService = new TestUserService();
@@ -32,6 +33,7 @@ namespace OpenCharityAuction.UnitTests.Tests
         }
 
         [Fact]
+        [Trait("TestType", "Unit")]
         public void Authetication_Test_InitialSetup_Should_Return_Login_Redirect()
         {
             UserService = new TestUserService();

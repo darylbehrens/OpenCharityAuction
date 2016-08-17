@@ -24,14 +24,5 @@ namespace OpenCharityAuction.UnitTests
             var controller = new AuthenticationController(new TestUserManager(), new TestSignInManager(contextAccessor.Object), new TestLoggerFactory(), UserService);
             return controller;
         }
-
-        private static ControllerContext GetControllerIdentity()
-        {
-            // Mock User Identity
-            var claim = new Claim("test", "testUser");
-            var mockIdentity = Mock.Of<ClaimsPrincipal>(ci => ci.FindFirst(It.IsAny<string>()) == claim);
-            var mockContext = Mock.Of<ControllerContext>(cc => cc.HttpContext.User == mockIdentity);
-            return mockContext;
-        }
     }
 }

@@ -12,6 +12,7 @@ namespace OpenCharityAuction.UnitTests.Models.Services
         public Task AddEvent(Event newEvent, Action<Event> callback = null)
         {
             newEvent.Id = 1;
+            newEvent.CreateDate = DateTime.Now;
             return Task.Run(() => callback(newEvent));
         }
     }
