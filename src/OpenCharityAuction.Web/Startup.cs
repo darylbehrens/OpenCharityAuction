@@ -23,7 +23,7 @@ namespace OpenCharityAuction.Web
             // Sets the config info from config.json
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("config.json");
+                .AddJsonFile("config.json", true);
 
             Configuration = builder.Build();
         }

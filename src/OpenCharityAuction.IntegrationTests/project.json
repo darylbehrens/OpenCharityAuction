@@ -1,0 +1,41 @@
+﻿{
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
+  "dependencies": {
+    "xunit": "2.2.0-beta2-build3300",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "Microsoft.AspNetCore.Identity": "1.0.0",
+    "FluentAssertions": "4.13.0",
+    "OpenCharityAuction.Entities": "1.0.0-*",
+    "OpenCharityAuction.Web": "1.0.0-*",
+    "xunit.runner.visualstudio": "2.2.0-beta2-build1149",
+    "Microsoft.AspNetCore.TestHost": "1.0.0",
+    "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
+    "Microsoft.EntityFrameworkCore.Sqlite": "1.0.0"
+
+
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        },
+        "moq.netcore": "4.4.0-beta8",
+        "System.Diagnostics.TraceSource": "4.0.0-rc2-24027"
+      },
+      "imports": [
+        "dotnet5.6",
+        "portable-net45+win8"
+      ]
+    }
+
+  },
+  "buildOptions": {
+    "copyToOutput": {
+      "include": [ "config.json" ]
+    }
+  }
+}
