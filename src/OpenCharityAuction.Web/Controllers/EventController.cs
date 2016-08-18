@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using OpenCharityAuction.Web.ViewModels;
 using System.Security.Claims;
 using OpenCharityAuction.Web.Models.Interfaces;
+using System.Diagnostics;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 

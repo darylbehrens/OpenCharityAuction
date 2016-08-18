@@ -2,14 +2,18 @@
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenCharityAuction.Entities.Models;
 using OpenCharityAuction.Web;
 using OpenCharityAuction.Web.Controllers;
+using OpenCharityAuction.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -34,16 +38,28 @@ namespace OpenCharityAuction.IntegrationTests.Tests
         [Fact]
         public async void TestInitialSetup()
         {
-            Event newEvent = new Event()
+            CookieCollection cookies;
+            // Get Anti Forgery Token
+            client.BaseAddress = new Uri("http://localhost:8888");
+            var getResponse = await client.GetAsync("/Event/AddEvent");
+            var som = getResponse.Headers;
+            string token = await Helpers.ExtractAntiForgeryToken(getResponse);
+            
+          AddEventViewModel newEvent = new AddEventViewModel()
             {
                 EventDate = DateTime.Now,
                 EventName = "TEST;"
             };
+            
+            var content = JsonConvert.SerializeObject(newEvent);
+            var array = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+            array.Add("__RequestVerificationToken", token);
+            var newContent = JsonConvert.SerializeObject(array);
 
-
-            var content = JsonConvert.SerializeObject(newEvent).ToString();
-            var response = await client.PostAsync("/Event/AddEvent", new StringContent(content, System.Text.Encoding.UTF8, "application/json"));
-            response.EnsureSuccessStatusCode();
+            var finalContent = new StringContent(newContent, Encoding.UTF8, "application/json");
+            var sometihing = Helpers.CreateWithCookiesFromResponse("/Event/AddEvent", finalContent, getResponse);
+            var response = await client.SendAsync(sometihing);
+            var result = response.ReasonPhrase + response.RequestMessage;
         }
     }
 }
