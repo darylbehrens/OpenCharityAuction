@@ -4,6 +4,7 @@
   },
 
   "data": {
-    "connectionstring": "Server=(localdb)\\mssqllocaldb;Database=OpenAuctionDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+    "connectionstring": "Server=(localdb)\\mssqllocaldb;Database=OpenAuctionDB;Trusted_Connection=True;MultipleActiveResultSets=true",
+    "testconnectionstring": "Server=(localdb)\\mssqllocaldb;Database=OpenAuctionDBTest;Trusted_Connection=True;MultipleActiveResultSets=true"
   }
 }

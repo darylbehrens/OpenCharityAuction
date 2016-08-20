@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System.Diagnostics;
 
 namespace OpenCharityAuction.Web.Migrations.Auction
 {
+    [DebuggerNonUserCode]
     public partial class updatedEventModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

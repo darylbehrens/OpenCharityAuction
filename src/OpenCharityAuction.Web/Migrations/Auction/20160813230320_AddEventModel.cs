@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Diagnostics;
 
 namespace OpenCharityAuction.Web.Migrations.Auction
 {
+ 
+    [DebuggerNonUserCode]
     public partial class AddEventModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

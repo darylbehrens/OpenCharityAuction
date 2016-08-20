@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Diagnostics;
 
 namespace OpenCharityAuction.Web.Migrations
 {
+    [DebuggerNonUserCode]
     public partial class InitializeUsers : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

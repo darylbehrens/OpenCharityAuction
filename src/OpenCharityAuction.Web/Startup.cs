@@ -70,6 +70,11 @@ namespace OpenCharityAuction.Web
             services.AddDbContext<Data.UserContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
         }
 
+        public virtual void EnsureDatabaseCreated(IApplicationBuilder app)
+        {
+
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
@@ -82,10 +87,14 @@ namespace OpenCharityAuction.Web
                 app.UseDeveloperExceptionPage();
             }
 
+            // Allows access to static files in wwwroot
             app.UseStaticFiles();
 
             // Uses Identity For Tokens
             app.UseIdentity();
+
+            // For setting up integration test database
+            EnsureDatabaseCreated(app);
 
             // Use MVC, route user to main page depending on status of install
             app.UseMvc(routes =>

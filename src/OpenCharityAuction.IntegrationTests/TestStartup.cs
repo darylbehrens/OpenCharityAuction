@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using OpenCharityAuction.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Data.Sqlite;
+using Microsoft.AspNetCore.Builder;
 
 namespace OpenCharityAuction.IntegrationTests
 {
@@ -18,16 +19,26 @@ namespace OpenCharityAuction.IntegrationTests
         
         public override void SetUpDatabase(IServiceCollection services)
         {
-            var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = ":memory:" };
-            var connectionString = connectionStringBuilder.ToString();
-            var connection = new SqliteConnection(connectionString);
+            // Adds AuctionContext Connection String
+            services.AddDbContext<AuctionContext>(options => options.UseSqlServer(Configuration["data:testconnectionstring"]));
 
-            services.AddEntityFrameworkSqlite()
-                .AddDbContext<AuctionContext>(
-                options => options.UseSqlite(connectionString));
+            // Adds UserContext Connection String
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration["data:testconnectionstring"]));
 
-            services.AddEntityFrameworkSqlite()
-                .AddDbContext<UserContext>(options => options.UseSqlite(connection));
+            var conn = Configuration["data:testconnectionstring"];
+
+        }
+
+        public override void EnsureDatabaseCreated(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var auctionContext = serviceScope.ServiceProvider.GetService<AuctionContext>();
+                auctionContext.Database.Migrate();
+
+                var userContext = serviceScope.ServiceProvider.GetService<UserContext>();
+                userContext.Database.Migrate();
+            }
         }
     }
 }

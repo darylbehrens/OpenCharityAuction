@@ -38,27 +38,29 @@ namespace OpenCharityAuction.IntegrationTests.Tests
         [Fact]
         public async void TestInitialSetup()
         {
-            // Get Anti Forgery Token
-            client.BaseAddress = new Uri("http://localhost:8888");
-            var getResponse = await client.GetAsync("/Event/AddEvent");
-            var som = getResponse.Headers;
-            string token = await Helpers.ExtractAntiForgeryToken(getResponse);
-            
-          AddEventViewModel newEvent = new AddEventViewModel()
-            {
-                EventDate = DateTime.Now,
-                EventName = "TEST;"
-            };
-            
-            var content = JsonConvert.SerializeObject(newEvent);
-            var array = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
-            array.Add("__RequestVerificationToken", token);
-            var newContent = JsonConvert.SerializeObject(array);
+            //  // Get Anti Forgery Token
+            //  client.BaseAddress = new Uri("http://localhost:8888");
+            //  var getResponse = await client.GetAsync("/Event/AddEvent");
+            //  var som = getResponse.Headers;
+            //  string token = await Helpers.ExtractAntiForgeryToken(getResponse);
 
-            var finalContent = new StringContent(newContent, Encoding.UTF8, "application/json");
-            var sometihing = Helpers.CreateWithCookiesFromResponse("/Event/AddEvent", finalContent, getResponse);
-            var response = await client.SendAsync(sometihing);
-            var result = response.ReasonPhrase + response.RequestMessage;
+            //AddEventViewModel newEvent = new AddEventViewModel()
+            //  {
+            //      EventDate = DateTime.Now,
+            //      EventName = "TEST;"
+            //  };
+
+            //  var content = JsonConvert.SerializeObject(newEvent);
+            //  var array = JsonConvert.DeserializeObject<Dictionary<string, string>>(content);
+            //  array.Add("__RequestVerificationToken", token);
+            //  var newContent = JsonConvert.SerializeObject(array);
+
+            //  var finalContent = new StringContent(newContent, Encoding.UTF8, "application/json");
+            //  var sometihing = Helpers.CreateWithCookiesFromResponse("/Authentication/InitialSetup", finalContent, getResponse);
+            //  var response = await client.SendAsync(sometihing);
+            //  var result = response.ReasonPhrase + response.RequestMessage;
+
+            var response = await client.GetAsync("/Authentication/InitialSetup");
         }
     }
 }
