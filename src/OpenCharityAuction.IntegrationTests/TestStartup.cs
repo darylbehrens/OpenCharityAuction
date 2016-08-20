@@ -26,7 +26,6 @@ namespace OpenCharityAuction.IntegrationTests
             services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration["data:testconnectionstring"]));
 
             var conn = Configuration["data:testconnectionstring"];
-
         }
 
         public override void EnsureDatabaseCreated(IApplicationBuilder app)

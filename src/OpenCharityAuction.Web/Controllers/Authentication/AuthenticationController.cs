@@ -63,13 +63,13 @@ namespace OpenCharityAuction.Web.Controllers
                     //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
                     await SignInManager.SignInAsync(user, isPersistent: false);
                     Logger.LogInformation(3, "User created a new account with password.");
-                    //return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Login", "Authentication");
                 }
                 //AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("InitialSetup", model);
         }
 
         [HttpGet]
