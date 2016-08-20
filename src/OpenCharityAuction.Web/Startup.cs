@@ -32,7 +32,11 @@ namespace OpenCharityAuction.Web
         // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // Setup Redirect If Not Logged In
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Cookies.ApplicationCookie.LoginPath = new PathString("/Authentication/InitialSetup");
+            });
 
             // Adds Config To Dependency Injection System
             services.AddSingleton(new Models.Configuration(Configuration["app:appName"]));
@@ -45,8 +49,6 @@ namespace OpenCharityAuction.Web
 
             SetUpDatabase(services);
 
-            // Adds UserContext Connection String
-            services.AddDbContext<Data.UserContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
             
 
             // Adds ASP Identity Roles
@@ -63,6 +65,9 @@ namespace OpenCharityAuction.Web
         {
             // Adds AuctionContext Connection String
             services.AddDbContext<Data.AuctionContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
+
+            // Adds UserContext Connection String
+            services.AddDbContext<Data.UserContext>(options => options.UseSqlServer(Configuration["data:connectionstring"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

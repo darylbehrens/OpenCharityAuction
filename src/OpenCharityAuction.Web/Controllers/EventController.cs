@@ -7,11 +7,13 @@ using OpenCharityAuction.Web.ViewModels;
 using System.Security.Claims;
 using OpenCharityAuction.Web.Models.Interfaces;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace OpenCharityAuction.Web.Controllers
 {
+    [Authorize]
     public class EventController : Controller
     {
         private readonly IAuctionService AuctionService;
@@ -35,7 +37,6 @@ namespace OpenCharityAuction.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddEvent(AddEventViewModel model)
         {
             if (ModelState.IsValid)

@@ -38,7 +38,6 @@ namespace OpenCharityAuction.IntegrationTests.Tests
         [Fact]
         public async void TestInitialSetup()
         {
-            CookieCollection cookies;
             // Get Anti Forgery Token
             client.BaseAddress = new Uri("http://localhost:8888");
             var getResponse = await client.GetAsync("/Event/AddEvent");

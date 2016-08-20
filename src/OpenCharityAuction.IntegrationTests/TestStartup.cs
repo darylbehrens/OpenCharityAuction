@@ -24,7 +24,10 @@ namespace OpenCharityAuction.IntegrationTests
 
             services.AddEntityFrameworkSqlite()
                 .AddDbContext<AuctionContext>(
-                options => options.UseSqlite(connection));
+                options => options.UseSqlite(connectionString));
+
+            services.AddEntityFrameworkSqlite()
+                .AddDbContext<UserContext>(options => options.UseSqlite(connection));
         }
     }
 }
