@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using OpenCharityAuction.Web.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,9 @@ namespace OpenCharityAuction.Web.Models.Services
         private readonly Data.UserContext UserContext;
         private readonly IHttpContextAccessor HttpContextAccessor;
 
-        public UserService(Data.UserContext userContext, IHttpContextAccessor httpContextAccessor)
+
+
+        public UserService(Data.UserContext userContext, IHttpContextAccessor httpContextAccessor, SignInManager<User> signInManager)
         {
             UserContext = userContext;
             HttpContextAccessor = httpContextAccessor;

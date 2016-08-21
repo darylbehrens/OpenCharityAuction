@@ -9,11 +9,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Security.Claims;
 
 namespace OpenCharityAuction.UnitTests.Models.Services
 {
     public class TestSignInManager : SignInManager<User>
     {
+        public bool? boolResult { get; set; }
+
         public TestSignInManager(IHttpContextAccessor contextAccessor)
             : base(new TestUserManager(),
                   contextAccessor,
@@ -30,12 +33,36 @@ namespace OpenCharityAuction.UnitTests.Models.Services
 
         public override Task<SignInResult> PasswordSignInAsync(string userName, string password, bool isPersistent, bool lockoutOnFailure)
         {
-            return Task.FromResult(SignInResult.Success);
+            SignInResult result = SignInResult.Failed;
+            if (boolResult.HasValue)
+            {
+                if (boolResult.Value)
+                {
+                    result = SignInResult.Success;
+                }
+                else
+                {
+                    result = SignInResult.Failed;
+                }
+            }
+            return Task.FromResult(result);
         }
 
         public override Task SignOutAsync()
         {
             return Task.FromResult(0);
+        }
+
+        public override bool IsSignedIn(ClaimsPrincipal principal)
+        {
+            bool result = false;
+            if (boolResult.HasValue)
+            {
+                result = boolResult.Value;
+            }
+
+            return result;
+
         }
     }
 }

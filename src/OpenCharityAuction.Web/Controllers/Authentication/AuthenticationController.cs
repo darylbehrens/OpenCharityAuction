@@ -16,7 +16,7 @@ namespace OpenCharityAuction.Web.Controllers
     public class AuthenticationController : Controller
     {
         private readonly UserManager<Models.User> UserManager;
-        private readonly SignInManager<Models.User> SignInManager;
+        public readonly SignInManager<Models.User> SignInManager;
         private readonly ILogger Logger;
         private readonly IUserService UserService;
 
@@ -83,7 +83,7 @@ namespace OpenCharityAuction.Web.Controllers
             else
             {
                 ViewData["ReturnUrl"] = returnUrl;
-                return View();
+                return View("Login");
             }
         }
 
@@ -106,12 +106,12 @@ namespace OpenCharityAuction.Web.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
+                    return View("Login", model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("Login",model);
         }
 
         [HttpPost]
@@ -121,18 +121,6 @@ namespace OpenCharityAuction.Web.Controllers
             await SignInManager.SignOutAsync();
             Logger.LogInformation(4, "User logged out.");
             return RedirectToAction("Login", "Authentication");
-        }
-
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Login", "Authentication");
-            }
         }
     }
 }

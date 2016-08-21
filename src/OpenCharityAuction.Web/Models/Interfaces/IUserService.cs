@@ -10,5 +10,6 @@ namespace OpenCharityAuction.Web.Models.Interfaces
         bool CheckIfThereAreAnyUsers();
 
         string GetUserId();
+        
     }
 }
