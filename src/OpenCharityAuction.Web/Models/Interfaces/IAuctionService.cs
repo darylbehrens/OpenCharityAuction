@@ -11,5 +11,7 @@ namespace OpenCharityAuction.Web.Models.Interfaces
         Task AddEvent(Entities.Models.Event newEvent, Action<Event> callback = null);
 
         Task GetAllEvents(Action<List<Event>> callback);
+
+        Task GetEventById(int id, Action<Event> callback);
     }
 }

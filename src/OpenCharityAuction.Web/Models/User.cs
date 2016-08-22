@@ -8,6 +8,7 @@ namespace OpenCharityAuction.Web.Models
 {
     public class User : IdentityUser
     {
+        public int? ActiveEventId { get; set; }
     }
 
     public class Role: IdentityRole

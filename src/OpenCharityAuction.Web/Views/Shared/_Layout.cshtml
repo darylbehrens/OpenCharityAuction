@@ -1,12 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using OpenCharityAuction.Web.Models.Interfaces
+@using OpenCharityAuction.Entities.Models
+
+@inject IUserService UserService
+@inject IAuctionService AuctionService
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <script type="text/javascript" src="~/lib/jquery.js"></script>
     <script type="text/javascript" src="~/lib/jquery-ui.js"></script>
     <link rel="stylesheet" href="~/lib/jquery-ui.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap.css"/>
-    <link rel="stylesheet" href="~/css/main.css"/>
+    <link rel="stylesheet" href="~/lib/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/main.css" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -32,6 +38,33 @@
         </div>
     </div>
     <div class="container body-content">
+        <header class="row">
+
+            @{
+                var eventId = await UserService.GetCurrentUsersActiveEvent();
+                @if (eventId.HasValue)
+                {
+                    Event thisEvent = new Event();
+                    await AuctionService.GetEventById(eventId.Value, x => thisEvent = x);
+                    {
+                        <div class="col-md-6 headername">
+                            <h3>@thisEvent.EventName</h3>
+                        </div> 
+                        <div class="col-md-6 headerdate">
+                            <h3>@thisEvent.EventDate.ToString("MM/dd/yyyy")</h3>
+                        </div>
+
+                    }
+
+
+
+                }
+            }
+
+        </header>
+
+
+
         @RenderBody()
         <hr />
         <footer>

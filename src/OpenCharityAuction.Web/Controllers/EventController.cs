@@ -52,7 +52,7 @@ namespace OpenCharityAuction.Web.Controllers
                 return RedirectToAction("Index", "Event");
             }
             return View("AddEvent", model);
-       
+
         }
 
         public async Task<IActionResult> SelectCurrentEvent()
@@ -63,6 +63,23 @@ namespace OpenCharityAuction.Web.Controllers
             return View("SelectCurrentEvent", selectEventVm);
         }
 
-        public async Task<IActionResult> SelectCurrentEvent()
+        [HttpPost]
+        public async Task<IActionResult> SelectCurrentEvent(string eventId)
+        {
+            if (!string.IsNullOrEmpty(eventId))
+            {
+                int intEventId = 0;
+                if (int.TryParse(eventId, out intEventId))
+                {
+                    await UserService.UpdateCurrentEventForUser(intEventId);
+                    return RedirectToAction("Index", "Event");
+                }
+                else
+                {
+                    // Throw Some Type Of Error
+                }
+            }
+            return View();
+        }
     }
 }

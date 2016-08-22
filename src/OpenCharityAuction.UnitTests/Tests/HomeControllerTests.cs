@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OpenCharityAuction.UnitTests.Models.Services;
 using OpenCharityAuction.Web.Controllers;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,13 @@ namespace OpenCharityAuction.UnitTests.Tests
     {
         [Fact]
         [Trait(TestType, Unit)]
-        public void Home_Controller_Get_Index_Should_Return_View()
+        public async void Home_Controller_Get_Index_Should_Return_View()
         {
             // Arrange
-            var controller = new HomeController();
+            var controller = new HomeController(new TestUserService(), new TestAuctionService());
 
             // Act
-            var result = controller.Index();
+            var result = await controller.Index();
 
             // Assert
             Assert.IsType<ViewResult>(result);

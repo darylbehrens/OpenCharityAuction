@@ -29,5 +29,10 @@ namespace OpenCharityAuction.UnitTests.Models.Services
 
             return Task.Run(() => callback(events));
         }
+
+        public Task GetEventById(int id, Action<Event> callback)
+        {
+            return Task.Run(() => { return new List<Event>(); });
+        }
     }
 }

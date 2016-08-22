@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OpenCharityAuction.Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace OpenCharityAuction.Web.Models.Services
 {
@@ -31,6 +32,11 @@ namespace OpenCharityAuction.Web.Models.Services
             var events = await Task.Run(() => AuctionContext.Events.ToList());
             callback(events);
 
+        }
+
+        public async Task GetEventById(int id, Action<Event> callback)
+        {
+            callback(await AuctionContext.Events.Where(x => x.Id == id).FirstOrDefaultAsync());
         }
     }
 }

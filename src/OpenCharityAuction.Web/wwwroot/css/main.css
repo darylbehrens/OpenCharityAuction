@@ -58,3 +58,13 @@ td{
     border: 1px solid black;
     padding: 8px;
 }
+
+.headerdate{
+    text-align:left;
+    color: seagreen;
+}
+
+.headername{
+    text-align:right;
+    color: seagreen;
+}

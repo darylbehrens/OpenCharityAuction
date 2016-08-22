@@ -23,9 +23,19 @@ namespace OpenCharityAuction.UnitTests.Models.Services
             }
         }
 
+        public async Task<int?> GetCurrentUsersActiveEvent()
+        {
+            return await Task.Run(() => { return 1; });
+        }
+
         public string GetUserId()
         {
             return "testUser";
+        }
+
+        public Task UpdateCurrentEventForUser(int eventId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

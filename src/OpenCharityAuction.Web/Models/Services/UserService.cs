@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using OpenCharityAuction.Web.Models.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,7 @@ namespace OpenCharityAuction.Web.Models.Services
         private readonly Data.UserContext UserContext;
         private readonly IHttpContextAccessor HttpContextAccessor;
 
-
-
-        public UserService(Data.UserContext userContext, IHttpContextAccessor httpContextAccessor, SignInManager<User> signInManager)
+        public UserService(Data.UserContext userContext, IHttpContextAccessor httpContextAccessor)
         {
             UserContext = userContext;
             HttpContextAccessor = httpContextAccessor;
@@ -35,6 +34,19 @@ namespace OpenCharityAuction.Web.Models.Services
         public string GetUserId()
         {
             return HttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        }
+
+        public async Task<int?> GetCurrentUsersActiveEvent()
+        {
+            var user = await UserContext.Users.Where(x => x.Id == GetUserId()).FirstOrDefaultAsync();
+            return user?.ActiveEventId;
+        }
+  
+        public async Task UpdateCurrentEventForUser(int eventId)
+        {
+            User thisUser = await UserContext.Users.Where(x => x.Id == GetUserId()).FirstOrDefaultAsync();
+            thisUser.ActiveEventId = eventId;
+            await UserContext.SaveChangesAsync();
         }
     }
 }

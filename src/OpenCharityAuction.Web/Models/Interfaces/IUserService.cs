@@ -10,6 +10,10 @@ namespace OpenCharityAuction.Web.Models.Interfaces
         bool CheckIfThereAreAnyUsers();
 
         string GetUserId();
+
+        Task<int?> GetCurrentUsersActiveEvent();
+
+        Task UpdateCurrentEventForUser(int eventId);
         
     }
 }

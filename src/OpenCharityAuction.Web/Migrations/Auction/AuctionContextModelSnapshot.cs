@@ -4,11 +4,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using OpenCharityAuction.Web.Data;
-using System.Diagnostics;
 
 namespace OpenCharityAuction.Web.Migrations.Auction
 {
-    [DebuggerNonUserCode]
     [DbContext(typeof(AuctionContext))]
     partial class AuctionContextModelSnapshot : ModelSnapshot
     {

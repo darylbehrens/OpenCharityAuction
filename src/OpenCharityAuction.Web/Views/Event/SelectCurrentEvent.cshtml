@@ -5,7 +5,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<form asp-controller="Event" asp-action="AddEvent" method="post" class="form-horizontal" , onsubmit="disableButton();" id="form">
+<form asp-controller="Event" asp-action="SelectCurrentEvent" method="post" class="form-horizontal" id="form">
 
     <div class="form-group">
         @if (Model.Events.Count > 0)
@@ -22,7 +22,7 @@
                         <td>@ev.EventName</td>
                         <td>@ev.EventDate.Date.ToString("MM/dd/yyyy")</td>
                         <td>
-                            <input type="radio" name="event" value="@ev.Id">Select
+                            <input type="radio" name="eventId" value="@ev.Id">Select
                         </td>
                     </tr>
                 }
