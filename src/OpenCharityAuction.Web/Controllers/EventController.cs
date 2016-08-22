@@ -54,5 +54,15 @@ namespace OpenCharityAuction.Web.Controllers
             return View("AddEvent", model);
        
         }
+
+        public async Task<IActionResult> SelectCurrentEvent()
+        {
+            var selectEventVm = new SelectCurrentEventViewModel();
+            await AuctionService.GetAllEvents(ev => selectEventVm.Events = ev);
+            selectEventVm.Events = selectEventVm.Events.OrderByDescending(x => x.EventDate).ToList();
+            return View("SelectCurrentEvent", selectEventVm);
+        }
+
+        public async Task<IActionResult> SelectCurrentEvent()
     }
 }

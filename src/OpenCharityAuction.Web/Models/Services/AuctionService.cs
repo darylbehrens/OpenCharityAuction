@@ -25,5 +25,12 @@ namespace OpenCharityAuction.Web.Models.Services
             // Send CallBack if not null
             callback?.Invoke(newEvent);
         }
+
+        public async Task GetAllEvents(Action<List<Event>> callback)
+        {
+            var events = await Task.Run(() => AuctionContext.Events.ToList());
+            callback(events);
+
+        }
     }
 }

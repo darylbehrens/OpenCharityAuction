@@ -113,5 +113,23 @@ namespace OpenCharityAuction.UnitTests.Tests
             var castedResult = result as ViewResult;
             Assert.Equal(castedResult.ViewName, "AddEvent");
         }
+
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public async void AddEventViewModel_Select_Current_Event_Should_Return_View()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+
+            // Assert
+            var result = await controller.SelectCurrentEvent();
+
+            // Act
+            Assert.IsType<ViewResult>(result);
+            var castedResult = result as ViewResult;
+            Assert.Equal(castedResult.ViewName, "SelectCurrentEvent");
+            Assert.IsType<SelectCurrentEventViewModel>(castedResult.Model);
+            var castedVm = castedResult.Model as SelectCurrentEventViewModel;
+        }
     }
 }

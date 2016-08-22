@@ -48,3 +48,13 @@ textarea {
     display: none
   }
 }
+
+th{
+    padding: 8px;
+    margin: 5px;
+}
+
+td{
+    border: 1px solid black;
+    padding: 8px;
+}

@@ -1,0 +1,39 @@
+﻿@model SelectCurrentEventViewModel
+
+@{
+    ViewData["Title"] = "Select Current Event";
+}
+
+<h2>@ViewData["Title"]</h2>
+<form asp-controller="Event" asp-action="AddEvent" method="post" class="form-horizontal" , onsubmit="disableButton();" id="form">
+
+    <div class="form-group">
+        @if (Model.Events.Count > 0)
+        {
+            <table>
+                <tr>
+                    <th>Event Name</th>
+                    <th>Event Date</th>
+                    <th>Select</th>
+                </tr>
+                @foreach (var ev in Model.Events)
+                {
+                    <tr>
+                        <td>@ev.EventName</td>
+                        <td>@ev.EventDate.Date.ToString("MM/dd/yyyy")</td>
+                        <td>
+                            <input type="radio" name="event" value="@ev.Id">Select
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        </div>
+        <div class="col-md-12">
+            <input type="submit" id="button" />
+        </div>
+    </form>
+    @section Scripts {
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+        <script src="~/scripts/main.js" type="text/javascript"></script>
+    }

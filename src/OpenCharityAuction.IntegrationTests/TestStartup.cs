@@ -32,11 +32,16 @@ namespace OpenCharityAuction.IntegrationTests
         {
             using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
+
+
                 var auctionContext = serviceScope.ServiceProvider.GetService<AuctionContext>();
                 auctionContext.Database.Migrate();
 
                 var userContext = serviceScope.ServiceProvider.GetService<UserContext>();
                 userContext.Database.Migrate();
+
+                auctionContext.Database.ExecuteSqlCommand("DELETE FROM events");
+                auctionContext.Database.ExecuteSqlCommand("DELETE FROM aspnetusers");
             }
         }
     }
