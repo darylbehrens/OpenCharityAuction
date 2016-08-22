@@ -18,7 +18,7 @@ namespace OpenCharityAuction.UnitTests.Tests
     {
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void AddEvent_Fail_Validation_Return_View()
+        public async void Event_AddEvent_POST_Fail_Validation_Return_View()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
 
@@ -29,12 +29,12 @@ namespace OpenCharityAuction.UnitTests.Tests
             var result = await controller.AddEvent(testEvent);
             Assert.IsType<ViewResult>(result);
             var castedResult = result as ViewResult;
-            Assert.Equal(castedResult.ViewName, "AddEvent");
+            Assert.Equal("AddEvent", castedResult.ViewName);
         }
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void AddEvent_Passes_Validation_Return_Redirect()
+        public async void Event_AddEvent_POST_Passes_Validation_Return_Redirect()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
 
@@ -48,13 +48,13 @@ namespace OpenCharityAuction.UnitTests.Tests
             var result = await controller.AddEvent(testEvent);
             Assert.IsType<RedirectToActionResult>(result);
             var castedResult = result as RedirectToActionResult;
-            Assert.Equal(castedResult.ActionName, "Index");
-            Assert.Equal(castedResult.ControllerName, "Event");
+            Assert.Equal("Index", castedResult.ActionName);
+            Assert.Equal("Event", castedResult.ControllerName);
         }
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void AddEventViewModel_Test_No_Event_Name_Fail()
+        public void Event_AddEvent_POST_Test_No_Event_Name_Fail()
         {
             AddEventViewModel vm = new AddEventViewModel()
             {
@@ -72,7 +72,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void AddEventViewModel_Test_No_Event_Date_Fail()
+        public void Event_AddEvent_POST_Test_No_Event_Date_Fail()
         {
             AddEventViewModel vm = new AddEventViewModel()
             {
@@ -90,7 +90,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void AddEventViewModel_Get_Index_Should_Return_View()
+        public void Event_Index_GET_Should_Return_View()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
             var result = controller.Index();
@@ -98,12 +98,12 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.IsType<ViewResult>(result);
 
             var castedResult = result as ViewResult;
-            Assert.Equal(castedResult.ViewName, "Index");
+            Assert.Equal("Index", castedResult.ViewName);
         }
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void AddEventViewModel_Get_AddEvent_Should_Return_View()
+        public void Event_AddEvent_GET_AddEvent_Should_Return_View()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
             var result = controller.AddEvent();
@@ -111,12 +111,12 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.IsType<ViewResult>(result);
 
             var castedResult = result as ViewResult;
-            Assert.Equal(castedResult.ViewName, "AddEvent");
+            Assert.Equal("AddEvent", castedResult.ViewName);
         }
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void AddEventViewModel_Select_Current_Event_Should_Return_View()
+        public async void Event_SelectCurrentEvent_GET_Should_Return_View()
         {
             // Arrange
             var controller = new EventController(new TestAuctionService(), new TestUserService());
@@ -127,9 +127,47 @@ namespace OpenCharityAuction.UnitTests.Tests
             // Act
             Assert.IsType<ViewResult>(result);
             var castedResult = result as ViewResult;
-            Assert.Equal(castedResult.ViewName, "SelectCurrentEvent");
+            Assert.Equal("SelectCurrentEvent", castedResult.ViewName);
             Assert.IsType<SelectCurrentEventViewModel>(castedResult.Model);
-            var castedVm = castedResult.Model as SelectCurrentEventViewModel;
+            Assert.Null(castedResult.ViewData["Error"]);
+        }
+
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public async void Event_SelectCurrentEvent_POST_With_Invalid_eventId_Should_Return_View_With_Error()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+
+            var vm = new SelectCurrentEventViewModel();
+
+            // Assert
+            var result = await controller.SelectCurrentEvent("cat", vm);
+
+            // Act
+            Assert.IsType<RedirectToActionResult>(result);
+            var castedResult = result as RedirectToActionResult;
+            Assert.Equal("SelectCurrentEvent", castedResult.ActionName);
+            Assert.Equal("Please make a valid selection.", castedResult.RouteValues["errorMessage"]);
+        }
+
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public async void Event_SelectCurrentEvent_POST_Pass_Should_Return_Redirect()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+
+            var vm = new SelectCurrentEventViewModel();
+
+            // Assert
+            var result = await controller.SelectCurrentEvent("1", vm);
+
+            // Act
+            Assert.IsType<RedirectToActionResult>(result);
+            var castedResult = result as RedirectToActionResult;
+            Assert.Equal("Index", castedResult.ActionName);
+            Assert.Equal("Event", castedResult.ControllerName);
         }
     }
 }

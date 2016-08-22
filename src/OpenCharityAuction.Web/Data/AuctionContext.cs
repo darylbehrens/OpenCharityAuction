@@ -21,5 +21,6 @@ namespace OpenCharityAuction.Web.Data
         // public DbSet<Entities.Models.Bidder> Bidders { get; set; }
 
         public DbSet<Entities.Models.Event> Events { get; set; }
+        public DbSet<Entities.Models.AdmissionTicket> AdmissionTickets { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace OpenCharityAuction.UnitTests.Models.Services
 
         public Task UpdateCurrentEventForUser(int eventId)
         {
-            throw new NotImplementedException();
+            return Task.Run(() => { });
         }
     }
 }

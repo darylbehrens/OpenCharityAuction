@@ -55,8 +55,9 @@ namespace OpenCharityAuction.Web.Controllers
 
         }
 
-        public async Task<IActionResult> SelectCurrentEvent()
+        public async Task<IActionResult> SelectCurrentEvent(string errorMessage = null)
         {
+            ViewData["Error"] = errorMessage;
             var selectEventVm = new SelectCurrentEventViewModel();
             await AuctionService.GetAllEvents(ev => selectEventVm.Events = ev);
             selectEventVm.Events = selectEventVm.Events.OrderByDescending(x => x.EventDate).ToList();
@@ -64,7 +65,7 @@ namespace OpenCharityAuction.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SelectCurrentEvent(string eventId)
+        public async Task<IActionResult> SelectCurrentEvent(string eventId, SelectCurrentEventViewModel model)
         {
             if (!string.IsNullOrEmpty(eventId))
             {
@@ -74,12 +75,8 @@ namespace OpenCharityAuction.Web.Controllers
                     await UserService.UpdateCurrentEventForUser(intEventId);
                     return RedirectToAction("Index", "Event");
                 }
-                else
-                {
-                    // Throw Some Type Of Error
-                }
             }
-            return View();
+            return RedirectToAction("SelectCurrentEvent", new { errorMessage = "Please make a valid selection." });
         }
     }
 }

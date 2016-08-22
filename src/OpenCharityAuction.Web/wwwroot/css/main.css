@@ -59,12 +59,9 @@ td{
     padding: 8px;
 }
 
-.headerdate{
-    text-align:left;
+.headertext{
+    text-align:center;
     color: seagreen;
+    margin-bottom: 2px;
 }
 
-.headername{
-    text-align:right;
-    color: seagreen;
-}
