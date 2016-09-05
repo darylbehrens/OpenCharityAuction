@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace OpenCharityAuction.UnitTests.Models.Services
 {
-    
+
     public class TestUserService : IUserService
     {
         public bool? boolReturn { get; set; } // To Test Different Bool Values
+        public int? intReturn { get; set; } // To Test Ints
 
         public bool CheckIfThereAreAnyUsers()
         {
@@ -17,15 +18,12 @@ namespace OpenCharityAuction.UnitTests.Models.Services
             {
                 return boolReturn.Value;
             }
-            else
-            {
-                return true;
-            }
+            throw new Exception("boolReturn not setup in TestUserService");
         }
 
         public async Task<int?> GetCurrentUsersActiveEvent()
         {
-            return await Task.Run(() => { return 1; });
+            return await Task.Run(() => { return intReturn; });
         }
 
         public string GetUserId()
@@ -33,9 +31,9 @@ namespace OpenCharityAuction.UnitTests.Models.Services
             return "testUser";
         }
 
-        public Task UpdateCurrentEventForUser(int eventId)
+        public async Task UpdateCurrentEventForUser(int eventId)
         {
-            return Task.Run(() => { });
+            await Task.Run(() => { });
         }
     }
 }

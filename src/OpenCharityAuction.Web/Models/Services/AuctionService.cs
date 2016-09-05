@@ -14,11 +14,25 @@ namespace OpenCharityAuction.Web.Models.Services
 
         public AuctionService(Data.AuctionContext context)
         {
+            // Dependency Injection Of Context
             AuctionContext = context;
+        }
+
+        public async Task AddAdmissionTicket(AdmissionTicket newAdmissionTicket, Action<AdmissionTicket> callback = null)
+        {
+            // Save New Admission Ticket
+            newAdmissionTicket.CreateDate = DateTime.UtcNow.Date;
+            newAdmissionTicket.ModifiedDate = DateTime.UtcNow.Date;
+            AuctionContext.AdmissionTickets.Add(newAdmissionTicket);
+            await AuctionContext.SaveChangesAsync();
+
+            // Send Callback If Not Null
+            callback?.Invoke(newAdmissionTicket);
         }
 
         public async Task AddEvent(Event newEvent, Action<Event> callback = null)
         {
+            // Save New Event
             newEvent.CreateDate = DateTime.UtcNow.Date;
             AuctionContext.Events.Add(newEvent);
             await AuctionContext.SaveChangesAsync();
@@ -29,6 +43,7 @@ namespace OpenCharityAuction.Web.Models.Services
 
         public async Task GetAllEvents(Action<List<Event>> callback)
         {
+            // Get and return all events
             var events = await Task.Run(() => AuctionContext.Events.ToList());
             callback(events);
 
@@ -36,6 +51,7 @@ namespace OpenCharityAuction.Web.Models.Services
 
         public async Task GetEventById(int id, Action<Event> callback)
         {
+            // Return Event By Id Number
             callback(await AuctionContext.Events.Where(x => x.Id == id).FirstOrDefaultAsync());
         }
     }

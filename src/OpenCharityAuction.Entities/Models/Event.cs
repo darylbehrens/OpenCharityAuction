@@ -19,6 +19,9 @@ namespace OpenCharityAuction.Entities.Models
         public DateTime EventDate {get; set;}
 
         [Required]
+        public DateTime ModifiedDate { get; set; }
+
+        [Required]
         public DateTime CreateDate { get; set; }
 
         [Required]

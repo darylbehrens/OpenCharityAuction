@@ -14,7 +14,16 @@ namespace OpenCharityAuction.Entities.Models
         public string Name { get; set; }
 
         [Required]
-        public string Cost { get; set; }
+        public DateTime CreateDate { get; set; }
+
+        [Required]
+        public DateTime ModifiedDate { get; set; }
+
+        [Required]
+        public string CreatedBy { get; set; }
+
+        [Required]
+        public decimal Cost { get; set; }
 
         [Required]
         public int EventId { get; set; }

@@ -10,6 +10,11 @@ namespace OpenCharityAuction.UnitTests.Models.Services
 {
     public class TestAuctionService : IAuctionService
     {
+        public async Task AddAdmissionTicket(AdmissionTicket newAdmissionTicket, Action<AdmissionTicket> callback = null)
+        {
+            await Task.Run(() => { callback?.Invoke(new AdmissionTicket()); });
+        }
+
         public Task AddEvent(Event newEvent, Action<Event> callback = null)
         {
             newEvent.Id = 1;

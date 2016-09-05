@@ -8,10 +8,12 @@ namespace OpenCharityAuction.Web.Models.Interfaces
 {
     public interface IAuctionService
     {
-        Task AddEvent(Entities.Models.Event newEvent, Action<Event> callback = null);
+        Task AddEvent(Event newEvent, Action<Event> callback = null);
 
         Task GetAllEvents(Action<List<Event>> callback);
 
         Task GetEventById(int id, Action<Event> callback);
+
+        Task AddAdmissionTicket(AdmissionTicket newAdmissionTicket, Action<AdmissionTicket> callback = null);
     }
 }

@@ -1,0 +1,33 @@
+﻿@model AddAdmissionTicketViewModel
+
+@{
+    ViewData["Title"] = "Add Admission Ticket";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="has-error">@ViewData["ErrorMessage"]</div>
+<form asp-controller="AdmissionTicket" asp-action="AddAdmissionTicket" method="post" class="form-horizontal" , onsubmit="disableButton();" id="form">
+    <div class="form-group">
+        <label asp-for="Name" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control hasDatePicker" asp-for="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Cost" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" asp-for="Cost" id="costBox" value="0.00" />
+            <span asp-validation-for="Cost" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label">Free</label>
+        <div class="col-sm-10">
+            <input type="checkbox" class="checkbox" onclick="checkboxToClear(this, '0.00', 'costBox')" />
+        </div>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" id="button" />
+    </div>
+</form>
