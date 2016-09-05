@@ -15,5 +15,9 @@ namespace OpenCharityAuction.Entities.Models
         public string Name { get; set; } // Short Name
 
         public string Description { get; set; } // Long Description
+
+        public DateTime CreateDate { get; set; }
+
+        public int CreatedBy { get; set; }
     }
 }

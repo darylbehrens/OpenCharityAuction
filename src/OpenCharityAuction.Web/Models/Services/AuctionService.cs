@@ -40,7 +40,7 @@ namespace OpenCharityAuction.Web.Models.Services
             // Send CallBack if not null
             callback?.Invoke(newEvent);
         }
-
+        
         public async Task GetAllEvents(Action<List<Event>> callback)
         {
             // Get and return all events
@@ -53,6 +53,19 @@ namespace OpenCharityAuction.Web.Models.Services
         {
             // Return Event By Id Number
             callback(await AuctionContext.Events.Where(x => x.Id == id).FirstOrDefaultAsync());
+        }
+
+        public async Task AddMeal(Meal newMeal, Action<Meal> callback = null)
+        {
+            newMeal.CreateDate = DateTime.UtcNow;
+            AuctionContext.Meals.Add(newMeal);
+            await AuctionContext.SaveChangesAsync();
+            callback(newMeal);
+        }
+
+        public Task GetMeals(Action<List<Meal>> callback)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿@model AddMealViewModel
+
+@{
+    ViewData["Title"] = "Add Meal";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="has-error">@ViewData["ErrorMessage"]</div>
+<form asp-controller="Meal" asp-action="AddMeal" method="post" class="form-horizontal" , onsubmit="disableButton();" id="form">
+    <div class="form-group">
+        <label asp-for="Name" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="col-sm-2 control-label"></label>
+        <div class="col-sm-10">
+            <textarea class="form-control" asp-for="Cost"></textarea>
+        </div>
+    </div>
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" id="button" />
+    </div>
+</form>

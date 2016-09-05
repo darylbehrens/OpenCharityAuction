@@ -26,8 +26,6 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.IsType<ViewResult>(result);
             var castedResult = result as ViewResult;
             Assert.Equal(castedResult.ViewName, "Index");
-            
-
         }
     }
 }
