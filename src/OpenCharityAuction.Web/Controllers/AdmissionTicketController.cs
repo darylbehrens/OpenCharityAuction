@@ -27,8 +27,9 @@ namespace OpenCharityAuction.Web.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(string successMessage = null)
         {
+            ViewData["SuccessMessage"] = successMessage;
             return View("Index");
         }
 
@@ -54,7 +55,7 @@ namespace OpenCharityAuction.Web.Controllers
                         EventId = eventId.Value
                     };
                     await AuctionService.AddAdmissionTicket(ticket);
-                    return RedirectToAction("Index", "AdmissionTicket");
+                    return RedirectToAction("Index", "AdmissionTicket", new { successMessage = "Admission Ticket Added" });
                 }
                 else
                 {
@@ -62,7 +63,6 @@ namespace OpenCharityAuction.Web.Controllers
                 }
             }
             return View("AddAdmissionTicket", vm);
-
         }
     }
 }

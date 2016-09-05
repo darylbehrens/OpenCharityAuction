@@ -60,7 +60,7 @@ namespace OpenCharityAuction.Web.Models.Services
             newMeal.CreateDate = DateTime.UtcNow;
             AuctionContext.Meals.Add(newMeal);
             await AuctionContext.SaveChangesAsync();
-            callback(newMeal);
+            callback?.Invoke(newMeal);
         }
 
         public Task GetMeals(Action<List<Meal>> callback)

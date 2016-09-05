@@ -18,7 +18,7 @@ namespace OpenCharityAuction.UnitTests.Tests
     {
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void Event_AddEvent_POST_Fail_Validation_Return_View()
+        public async void Event_AddEvent_POST_FAIL_Validation_Return_View()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
 
@@ -34,7 +34,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void Event_AddEvent_POST_Passes_Validation_Return_Redirect()
+        public async void Event_AddEvent_POST_PASS_Return_Redirect()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
 
@@ -50,11 +50,12 @@ namespace OpenCharityAuction.UnitTests.Tests
             var castedResult = result as RedirectToActionResult;
             Assert.Equal("Index", castedResult.ActionName);
             Assert.Equal("Event", castedResult.ControllerName);
+            Assert.Equal("Event Added", castedResult.RouteValues["successMessage"]);
         }
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void Event_AddEvent_POST_Test_No_Event_Name_Fail()
+        public void Event_AddEvent_POST_FAIL_No_Event_Name()
         {
             AddEventViewModel vm = new AddEventViewModel()
             {
@@ -72,7 +73,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void Event_AddEvent_POST_Test_No_Event_Date_Fail()
+        public void Event_AddEvent_POST_FAIL_No_Event_Date()
         {
             AddEventViewModel vm = new AddEventViewModel()
             {
@@ -90,7 +91,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void Event_Index_GET_Should_Return_View()
+        public void Event_Index_GET_PASS_Should_Return_View()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
             var result = controller.Index();
@@ -103,7 +104,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public void Event_AddEvent_GET_AddEvent_Should_Return_View()
+        public void Event_AddEvent_GET_PASS_Should_Return_View()
         {
             var controller = new EventController(new TestAuctionService(), new TestUserService());
             var result = controller.AddEvent();
@@ -116,7 +117,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void Event_SelectCurrentEvent_GET_Should_Return_View()
+        public async void Event_SelectCurrentEvent_GET_PASS_Should_Return_View()
         {
             // Arrange
             var controller = new EventController(new TestAuctionService(), new TestUserService());
@@ -134,7 +135,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void Event_SelectCurrentEvent_POST_With_Invalid_eventId_Should_Return_View_With_Error()
+        public async void Event_SelectCurrentEvent_POST_FAIL_Invalid_EventId_Return_View()
         {
             // Arrange
             var controller = new EventController(new TestAuctionService(), new TestUserService());
@@ -153,7 +154,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait("TestType", "Unit")]
-        public async void Event_SelectCurrentEvent_POST_Pass_Should_Return_Redirect()
+        public async void Event_SelectCurrentEvent_POST_PASS_Should_Return_Redirect()
         {
             // Arrange
             var controller = new EventController(new TestAuctionService(), new TestUserService());
@@ -168,6 +169,7 @@ namespace OpenCharityAuction.UnitTests.Tests
             var castedResult = result as RedirectToActionResult;
             Assert.Equal("Index", castedResult.ActionName);
             Assert.Equal("Event", castedResult.ControllerName);
+            Assert.Equal("Active Event Changed", castedResult.RouteValues["successMessage"]);
         }
     }
 }

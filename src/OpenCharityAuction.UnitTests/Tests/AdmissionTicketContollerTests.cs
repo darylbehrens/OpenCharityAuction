@@ -19,7 +19,7 @@ namespace OpenCharityAuction.UnitTests.Tests
     {
         [Fact]
         [Trait(TestType, Unit)]
-        public void AdmissionTicket_GET_Index()
+        public void AdmissionTicket_Index_GET_PASS()
         {
             // Arrange
             var controller = new AdmissionTicketController(new TestUserService(), new TestAuctionService());
@@ -35,7 +35,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait(TestType, Unit)]
-        public void AdmissionTicket_GET_AddAdmissionTicket_Should_Return_View()
+        public void AdmissionTicket_AddAdmissionTicket_GET_PASS_Should_Return_View()
         {
             // Arrange
             var controller = new AdmissionTicketController(new TestUserService(), new TestAuctionService());
@@ -51,7 +51,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait(TestType, Unit)]
-        public async void AdmissionTicket_POST_AddAdmissionTicket_No_Event_Should_Return_Redirect()
+        public async void AdmissionTicket_AddAdmissionTicket_POST_FAIL_No_Event_Should_Return_Redirect()
         {
             // Arrange
             var controller = new AdmissionTicketController(new TestUserService(), new TestAuctionService());
@@ -74,7 +74,7 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait(TestType, Unit)]
-        public async void AdmissionTicket_POST_AddAdmissionTicket_Bad_ModelState_Should_Return_View()
+        public async void AdmissionTicket_AddAdmissionTicket_POST_FAIL_Bad_ModelState_Should_Return_View()
         {
             // Arrange
             var controller = new AdmissionTicketController(new TestUserService(), new TestAuctionService());
@@ -96,11 +96,11 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait(TestType, Unit)]
-        public async void AdmissionTicket_POST_AddAdmissionTicket_Pass_Should_Return_Redirect()
+        public async void AdmissionTicket_AddAdmissionTicket_POST_PASS_Should_Return_Redirect()
         {
             // Arrange
             var testUserService = new TestUserService();
-            testUserService.intReturn = 3; // To Allow To Pass
+            testUserService.intReturn = 3; // To Allow To Pass must have active event
             var controller = new AdmissionTicketController(testUserService, new TestAuctionService());
             var vm = new AddAdmissionTicketViewModel()
             {
@@ -116,6 +116,7 @@ namespace OpenCharityAuction.UnitTests.Tests
             var castedResult = result as RedirectToActionResult;
             Assert.Equal("Index", castedResult.ActionName);
             Assert.Equal("AdmissionTicket", castedResult.ControllerName);
+            Assert.Equal("Admission Ticket Added", castedResult.RouteValues["successMessage"]);
         }
     }
 }

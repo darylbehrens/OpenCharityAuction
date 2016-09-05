@@ -26,8 +26,9 @@ namespace OpenCharityAuction.Web.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult Index()
+        public IActionResult Index(string successMessage = null)
         {
+            ViewData["SuccessMessage"] = successMessage;
             return View("Index");
         }
 
@@ -49,7 +50,7 @@ namespace OpenCharityAuction.Web.Controllers
                 };
                 Entities.Models.Event testEvent;
                 await AuctionService.AddEvent(newEvent, ev => testEvent = ev);
-                return RedirectToAction("Index", "Event");
+                return RedirectToAction("Index", "Event", new { successMessage = "Event Added" });
             }
             return View("AddEvent", model);
 
@@ -73,7 +74,7 @@ namespace OpenCharityAuction.Web.Controllers
                 if (int.TryParse(eventId, out intEventId))
                 {
                     await UserService.UpdateCurrentEventForUser(intEventId);
-                    return RedirectToAction("Index", "Event");
+                    return RedirectToAction("Index", "Event", new { successMessage = "Active Event Changed" });
                 }
             }
             return RedirectToAction("SelectCurrentEvent", new { errorMessage = "Please make a valid selection." });

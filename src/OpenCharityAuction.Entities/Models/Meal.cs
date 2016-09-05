@@ -11,13 +11,19 @@ namespace OpenCharityAuction.Entities.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(5)]
         public string Name { get; set; } // Short Name
 
         public string Description { get; set; } // Long Description
 
+        [Required]
         public DateTime CreateDate { get; set; }
 
-        public int CreatedBy { get; set; }
+        [Required]
+        public string CreatedBy { get; set; }
+
+        [Required]
+        public int EventId { get; set; }
+
+        public virtual Event Event { get; set; }
     }
 }
