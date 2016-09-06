@@ -60,7 +60,7 @@ namespace OpenCharityAuction.Web.Controllers
         {
             ViewData["Error"] = errorMessage;
             var selectEventVm = new SelectCurrentEventViewModel();
-            await AuctionService.GetAllEvents(ev => selectEventVm.Events = ev);
+            await AuctionService.GetEvents(ev => selectEventVm.Events = ev);
             selectEventVm.Events = selectEventVm.Events.OrderByDescending(x => x.EventDate).ToList();
             return View("SelectCurrentEvent", selectEventVm);
         }

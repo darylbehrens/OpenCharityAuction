@@ -60,10 +60,52 @@ namespace OpenCharityAuction.Web.Controllers
                     return RedirectToAction("AddMeal", new { errorMessage = "You must have an active event before you can add meals" });
                 }
             }
-
             return View("AddMeal", vm);
         }
 
+        public async Task<IActionResult> EditMeal(int id, string errorMessage = null)
+        {
+            Meal dbMeal = new Meal();
+            await AuctionService.GetMealById(id, (meal) => dbMeal = meal);
+            EditMealViewModel editMealVm = new EditMealViewModel()
+            {
+                Name = dbMeal.Name,
+                Id = dbMeal.Id,
+                Description = dbMeal.Description
+            };
+            ViewData["ErrorMessage"] = errorMessage;
 
+            return View("EditMeal", editMealVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditMeal(EditMealViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var eventId = await UserService.GetCurrentUsersActiveEvent();
+                if (eventId != null)
+                {
+                    Meal meal = new Meal()
+                    {
+                        Id = vm.Id,
+                        Name = vm.Name,
+                        Description = vm.Description
+                    };
+                    await AuctionService.UpdateMeal(meal);
+                    return RedirectToAction("Index", "Meal", new { successMessage = "Meal Updated" });
+                }
+                else
+                {
+                    return RedirectToAction("EditMeal", new { errorMessage = "You must have an active event before you can add meals" });
+                }
+            }
+            return View("EditMeal", vm);
+        }
+
+        public IActionResult SearchMeal()
+        {
+            return View("SearchMeal");
+        }
     }
 }

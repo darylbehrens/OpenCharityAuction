@@ -33,7 +33,7 @@ namespace OpenCharityAuction.Web.Controllers
             else
             {
                 List<Event> events = new List<Event>();
-                await AuctionService.GetAllEvents(ev => events = ev);
+                await AuctionService.GetEvents(ev => events = ev);
                 if (events.Count == 0)
                 {
                     return RedirectToAction("AddEvent", "Event");

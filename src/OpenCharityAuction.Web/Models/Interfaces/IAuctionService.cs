@@ -10,14 +10,18 @@ namespace OpenCharityAuction.Web.Models.Interfaces
     {
         Task AddEvent(Event newEvent, Action<Event> callback = null);
 
-        Task GetAllEvents(Action<List<Event>> callback);
+        Task GetEvents(Action<List<Event>> callback, string query = null);
 
         Task GetEventById(int id, Action<Event> callback);
 
         Task AddAdmissionTicket(AdmissionTicket newAdmissionTicket, Action<AdmissionTicket> callback = null);
 
-        Task GetMeals(Action<List<Meal>> callback);
-
+        Task GetMeals(Action<List<Meal>> callback, string nameFilter = null);
+        
         Task AddMeal(Meal newMeal, Action<Meal> callback = null);
+
+        Task UpdateMeal(Meal meal);
+
+        Task GetMealById(int id, Action<Meal> callback);
     }
 }

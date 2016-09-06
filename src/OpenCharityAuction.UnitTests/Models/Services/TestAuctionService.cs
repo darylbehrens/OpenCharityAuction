@@ -22,7 +22,7 @@ namespace OpenCharityAuction.UnitTests.Models.Services
             return Task.Run(() => callback(newEvent));
         }
         
-        public Task GetAllEvents(Action<List<Event>> callback)
+        public Task GetEvents(Action<List<Event>> callback, string query = null)
         {
             var events = new List<Event>()
             {
@@ -57,6 +57,21 @@ namespace OpenCharityAuction.UnitTests.Models.Services
         public Task AddMeal(Meal newMeal, Action<Meal> callback = null)
         {
             return Task.Run(() => callback?.Invoke(new Meal()));
+        }
+
+        public Task GetMeals(Action<List<Meal>> callback, string nameFilter = null)
+        {
+            return Task.Run(() => callback(new List<Meal>()));
+        }
+
+        public Task UpdateMeal(Meal meal)
+        {
+            return Task.Run(() => { });
+        }
+
+        public Task GetMealById(int id, Action<Meal> callback)
+        {
+            return Task.Run(() => callback(new Meal()));
         }
     }
 }

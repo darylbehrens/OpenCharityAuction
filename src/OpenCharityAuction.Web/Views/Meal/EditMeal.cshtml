@@ -1,0 +1,17 @@
+﻿@model EditMealViewModel
+
+@{
+    ViewData["Title"] = "Edit Meal";
+}
+
+<h2>@ViewData["Title"]</h2>
+<div class="has-error">@ViewData["ErrorMessage"]</div>
+<form asp-controller="Meal" asp-action="EditMeal" method="post" class="form-horizontal" , onsubmit="disableButton();" id="form">
+    @Html.Partial("MealFormPartial", Model);
+    <input type="hidden" value="@Model.Id"/>
+    <div class="row">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" id="button" />
+        </div>
+    </div>
+</form>

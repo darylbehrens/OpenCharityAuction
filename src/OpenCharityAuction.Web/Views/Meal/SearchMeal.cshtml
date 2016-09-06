@@ -1,0 +1,22 @@
+﻿<div ng-app="search" ng-controller="SearchController" ng-cloak>
+    <input type="text" ng-model="query"/>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th ng-cloak>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items | filter:query">
+                <td>{{item.name}}</td>
+                <td>{{item.description}}</td>
+                <td><a href="/Meal/EditMeal/{{item.id}}">Edit</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/scripts/angular/search/search.js" type="text/javascript"></script>
+}

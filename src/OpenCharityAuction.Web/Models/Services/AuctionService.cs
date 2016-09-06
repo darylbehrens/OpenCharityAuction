@@ -41,12 +41,11 @@ namespace OpenCharityAuction.Web.Models.Services
             callback?.Invoke(newEvent);
         }
         
-        public async Task GetAllEvents(Action<List<Event>> callback)
+        public async Task GetEvents(Action<List<Event>> callback, string query = null)
         {
             // Get and return all events
             var events = await Task.Run(() => AuctionContext.Events.ToList());
             callback(events);
-
         }
 
         public async Task GetEventById(int id, Action<Event> callback)
@@ -63,9 +62,29 @@ namespace OpenCharityAuction.Web.Models.Services
             callback?.Invoke(newMeal);
         }
 
-        public Task GetMeals(Action<List<Meal>> callback)
+        public async Task GetMeals(Action<List<Meal>> callback, string nameFilter = null)
         {
-            throw new NotImplementedException();
+            var meals = await AuctionContext.Meals.ToListAsync();
+            if (nameFilter != null)
+            {
+                meals = meals.Where(x => x.Name.StartsWith(nameFilter)).ToList();
+            }
+            callback(meals);
+        }
+
+        public async Task UpdateMeal(Meal meal)
+        {
+            var mealToUpdate = await AuctionContext.Meals.Where(x => x.Id == meal.Id).FirstOrDefaultAsync();
+            mealToUpdate.Name = meal.Name;
+            mealToUpdate.Description = meal.Description;
+            AuctionContext.Entry(mealToUpdate).State = EntityState.Modified;
+            await AuctionContext.SaveChangesAsync();
+        }
+
+        public async Task GetMealById(int id, Action<Meal> callback)
+        {
+            var meal = await AuctionContext.Meals.Where(x => x.Id == id).FirstOrDefaultAsync();
+            callback(meal);
         }
     }
 }
