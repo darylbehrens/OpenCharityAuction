@@ -12,28 +12,50 @@ so that others could use it.
 
 The program will allow the entire management  of the Auction Lifecycle, including:
 
-Setting up multiple events
-Setting up Admission Tickets
-Setting up Meals
-Setting up Reserved Tables
-Setting Up Bidders, who will be able to bid on or buy items
-Printing Certificates for prizes that are not redeemed at the auction.
-Checkout using Stripe
-Creating Final Invoices
-Multiple items:
-  Direct Purchases - Wine, Cakes, Etc
-  Silent Auction Wins
-  Live Auction Wins
-  Raffles  - purchase multiple tickets with 1 winner
-  VIP Tables
+<ul>
+  <li>Setting up multiple events</li>
+  <li>Setting up Admission Tickets</li>
+  <li>Setting up Meals</li>
+  <li>
+Setting up Reserved Tables</li>
+  <li>
+Setting Up Bidders, who will be able to bid on or buy items</li>
+  <li>
+Printing Certificates for prizes that are not redeemed at the auction.</li>
+  <li>
+Checkout using Stripe</li>
+  <li>
+Creating Final Invoices</li>
+  <li>
+Multiple items:</li>
+  <ul>
+    <li>Direct Purchases - Wine, Cakes, Etc</li>
+    <li>
+    Silent Auction Wins</li>
+    <li>
+    Live Auction Wins</li>
+    <li>
+    Raffles  - purchase multiple tickets with 1 winner</li>
+    <li>
+    VIP Tables</li>
+  </ul>
+</ul>
+  
 
 V2 Plans
-Web-App for Auction Attendees:
-  Allow to bid by phone on Silent Auction
-  Be Notified when a bidder wins an auction
-Seating Arrangements:
-  Automated seating based on Attendees seating preferences (don't seat them next to their enemy)
-Bidding from home - allow non Attendees to Bid on Silent Auctions
+<ul>
+  <li>Web-App for Auction Attendees:</li>
+  <ul>
+    <li>Allow to bid by phone on Silent Auction</li>
+    <li>Be Notified when a bidder wins an auction</li>
+    <li>Bidding from home - allow non Attendees to Bid on Silent Auctions</li>
+  </ul>
+<li>Seating Arrangements:</li>
+  <ul>
+    <li>Automated seating based on Attendees seating preferences (don't seat them next to their enemy)</li>
+  </ul>
+</ul>
+
 
 
   
