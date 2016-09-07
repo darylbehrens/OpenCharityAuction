@@ -115,61 +115,38 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.Equal("AddEvent", castedResult.ViewName);
         }
 
-        //[Fact]
-        //[Trait("TestType", "Unit")]
-        //public async void Event_SelectCurrentEvent_GET_PASS_Should_Return_View()
-        //{
-        //    // Arrange
-        //    var controller = new EventController(new TestAuctionService(), new TestUserService());
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public void Event_SelectCurrentEvent_GET_PASS_Should_Return_View()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
 
-        //    // Assert
-        //    var result = await controller.SelectCurrentEvent();
+            // Assert
+            var result = controller.SelectCurrentEvent();
 
-        //    // Act
-        //    Assert.IsType<ViewResult>(result);
-        //    var castedResult = result as ViewResult;
-        //    Assert.Equal("SelectCurrentEvent", castedResult.ViewName);
-        //    Assert.IsType<SelectCurrentEventViewModel>(castedResult.Model);
-        //    Assert.Null(castedResult.ViewData["Error"]);
-        //}
+            // Act
+            Assert.IsType<ViewResult>(result);
+            var castedResult = result as ViewResult;
+            Assert.Equal("SelectCurrentEvent", castedResult.ViewName);
+        }
 
-        //[Fact]
-        //[Trait("TestType", "Unit")]
-        //public async void Event_SelectCurrentEvent_POST_FAIL_Invalid_EventId_Return_View()
-        //{
-        //    // Arrange
-        //    var controller = new EventController(new TestAuctionService(), new TestUserService());
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public async void Event_SelectCurrentEvent_POST_PASS_Should_Return_Redirect()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
 
-        //    var vm = new SelectCurrentEventViewModel();
+            // Assert
+            var result = await controller.SelectCurrentEvent(1);
 
-        //    // Assert
-        //    var result = await controller.SelectCurrentEvent("cat", vm);
-
-        //    // Act
-        //    Assert.IsType<RedirectToActionResult>(result);
-        //    var castedResult = result as RedirectToActionResult;
-        //    Assert.Equal("SelectCurrentEvent", castedResult.ActionName);
-        //    Assert.Equal("Please make a valid selection.", castedResult.RouteValues["errorMessage"]);
-        //}
-
-        //[Fact]
-        //[Trait("TestType", "Unit")]
-        //public async void Event_SelectCurrentEvent_POST_PASS_Should_Return_Redirect()
-        //{
-        //    // Arrange
-        //    var controller = new EventController(new TestAuctionService(), new TestUserService());
-
-        //    var vm = new SelectCurrentEventViewModel();
-
-        //    // Assert
-        //    var result = await controller.SelectCurrentEvent("1", vm);
-
-        //    // Act
-        //    Assert.IsType<RedirectToActionResult>(result);
-        //    var castedResult = result as RedirectToActionResult;
-        //    Assert.Equal("Index", castedResult.ActionName);
-        //    Assert.Equal("Event", castedResult.ControllerName);
-        //    Assert.Equal("Active Event Changed", castedResult.RouteValues["successMessage"]);
-        //}
+            // Act
+            Assert.IsType<RedirectToActionResult>(result);
+            var castedResult = result as RedirectToActionResult;
+            Assert.Equal("Index", castedResult.ActionName);
+            Assert.Equal("Event", castedResult.ControllerName);
+            Assert.Equal("Active Event Changed", castedResult.RouteValues["successMessage"]);
+        }
     }
 }

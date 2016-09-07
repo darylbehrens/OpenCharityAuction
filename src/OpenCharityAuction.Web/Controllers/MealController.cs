@@ -97,7 +97,7 @@ namespace OpenCharityAuction.Web.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("EditMeal", new { errorMessage = "You must have an active event before you can add meals" });
+                    return RedirectToAction("EditMeal", new { errorMessage = "You must have an active event before you can edit meals" });
                 }
             }
             return View("EditMeal", vm);

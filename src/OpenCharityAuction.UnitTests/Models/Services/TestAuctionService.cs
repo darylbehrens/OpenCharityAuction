@@ -21,7 +21,7 @@ namespace OpenCharityAuction.UnitTests.Models.Services
             newEvent.CreateDate = DateTime.Now;
             return Task.Run(() => callback(newEvent));
         }
-        
+
         public Task GetEvents(Action<List<Event>> callback, string query = null)
         {
             var events = new List<Event>()
@@ -71,7 +71,15 @@ namespace OpenCharityAuction.UnitTests.Models.Services
 
         public Task GetMealById(int id, Action<Meal> callback)
         {
-            return Task.Run(() => callback(new Meal()));
+            return Task.Run(() => callback(new Meal()
+            {
+                Id = id,
+                Name = "Turkey",
+                Description = "Delicious Turkey",
+                CreateDate = DateTime.Now,
+                CreatedBy = "DARYL",
+                EventId = 1
+            }));
         }
     }
 }
