@@ -18,9 +18,4 @@ search.controller('EventSearchController', function SearchController($scope, $ht
         $scope.items = response.data;
         console.log($scope.items);
     });
-
-    $scope.post = function (eventId) {
-
-    }
-
 });

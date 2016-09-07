@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace OpenCharityAuction.Web.ViewModels
 {
-    public class SelectCurrentEventViewModel
+    public class EditEventViewModel : AddEventViewModel
     {
-        public int? SelectedEventId { get; set; }
-
-        public List<Event> Events { get; set; }
+        public int Id { get; set; }
     }
 }

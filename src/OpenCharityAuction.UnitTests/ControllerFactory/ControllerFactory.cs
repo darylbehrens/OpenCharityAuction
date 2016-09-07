@@ -24,5 +24,17 @@ namespace OpenCharityAuction.UnitTests
             var controller = new AuthenticationController(new TestUserManager(), new TestSignInManager(contextAccessor.Object), new TestLoggerFactory(), UserService);
             return controller;
         }
+
+        public static MealController GetMealController(IUserService userService, IAuctionService auctionService, int? userId = null)
+        {
+            TestUserService castedUserService = new TestUserService();
+            castedUserService = userService as TestUserService;
+            if (userId != null)
+            {
+                castedUserService.intReturn = 3; // To Allow To Pass must have active event
+            }
+
+            return new MealController(auctionService, castedUserService);
+        }
     }
 }

@@ -24,8 +24,7 @@ namespace OpenCharityAuction.Web.Controllers
             AuctionService = auctionService;
             UserService = userService;
         }
-
-        // GET: /<controller>/
+        
         public IActionResult Index(string successMessage = null)
         {
             ViewData["SuccessMessage"] = successMessage;
@@ -56,28 +55,22 @@ namespace OpenCharityAuction.Web.Controllers
 
         }
 
-        public async Task<IActionResult> SelectCurrentEvent(string errorMessage = null)
+        public IActionResult SearchEvent()
+        {
+            return View("SearchEvent");
+        }
+
+        public IActionResult SelectCurrentEvent(string errorMessage = null)
         {
             ViewData["Error"] = errorMessage;
-            var selectEventVm = new SelectCurrentEventViewModel();
-            await AuctionService.GetEvents(ev => selectEventVm.Events = ev);
-            selectEventVm.Events = selectEventVm.Events.OrderByDescending(x => x.EventDate).ToList();
-            return View("SelectCurrentEvent", selectEventVm);
+            return View("SelectCurrentEvent");
         }
 
         [HttpPost]
-        public async Task<IActionResult> SelectCurrentEvent(string eventId, SelectCurrentEventViewModel model)
+        public async Task<IActionResult> SelectCurrentEvent(int eventId)
         {
-            if (!string.IsNullOrEmpty(eventId))
-            {
-                int intEventId = 0;
-                if (int.TryParse(eventId, out intEventId))
-                {
-                    await UserService.UpdateCurrentEventForUser(intEventId);
-                    return RedirectToAction("Index", "Event", new { successMessage = "Active Event Changed" });
-                }
-            }
-            return RedirectToAction("SelectCurrentEvent", new { errorMessage = "Please make a valid selection." });
+            await UserService.UpdateCurrentEventForUser(eventId);
+            return RedirectToAction("Index", "Event", new { successMessage = "Active Event Changed" });
         }
     }
 }

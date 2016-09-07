@@ -1,12 +1,11 @@
 ﻿@{
-    ViewData["Title"] = "Select Meal To Edit";
+    ViewData["Title"] = "Select Current Event";
 }
 
 <h2>@ViewData["Title"]</h2>
 <h4>@ViewData["Error"]</h4>
 
-
-<div ng-app="search" ng-controller="MealSearchController" ng-cloak>
+<div ng-app="search" ng-controller="EventSearchController" ng-cloak>
     <hr />
     <div class="row">
         <div class="col-md-1"><h4>Search</h4></div>
@@ -22,9 +21,9 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in items | filter:query">
-                <td>{{item.name}}</td>
-                <td>{{item.description}}</td>
-                <td><a href="/Meal/EditMeal/{{item.id}}">Edit</a></td>
+                <td>{{item.eventName}}</td>
+                <td>{{item.eventDate}}</td>
+                <td><a href="/Event/EditEvent/{{item.id}}">Edit</a></td>
             </tr>
         </tbody>
     </table>

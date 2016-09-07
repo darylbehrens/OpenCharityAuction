@@ -34,7 +34,7 @@ namespace OpenCharityAuction.UnitTests.Tests
         [Trait(TestType, Unit)]
         public void Meal_AddMeal_GET_PASS_Should_Return_View()
         {
-            var controller = new MealController(new TestAuctionService(), new TestUserService());
+            var controller = ControllerFactory.GetMealController(new TestUserService(), new TestAuctionService(), 3);
             var result = controller.AddMeal();
 
             Assert.IsType<ViewResult>(result);
@@ -48,16 +48,12 @@ namespace OpenCharityAuction.UnitTests.Tests
         public async void Meal_AddMeal_POST_PASS_Should_Return_Redirect()
         {
             // Arrange
+            var controller = ControllerFactory.GetMealController(new TestUserService(), new TestAuctionService(), 3);
             AddMealViewModel vm = new AddMealViewModel()
             {
                 Name = "Turkey",
                 Description = "Delicious Turkey with Butter Cream Frosting"
             };
-
-            var testUserService = new TestUserService();
-            testUserService.intReturn = 3; // To Allow To Pass must have active event
-
-            var controller = new MealController(new TestAuctionService(), testUserService);
 
             // Act
             var result = await controller.AddMeal(vm);
@@ -75,7 +71,7 @@ namespace OpenCharityAuction.UnitTests.Tests
         public async void Meal_AddMeal_POST_FAIL_No_Event_Should_Return_Redirect()
         {
             // Arrange
-            var controller = new MealController(new TestAuctionService(), new TestUserService());
+            var controller = ControllerFactory.GetMealController(new TestUserService(), new TestAuctionService());
             AddMealViewModel vm = new AddMealViewModel()
             {
                 Name = "Turkey",
@@ -97,7 +93,7 @@ namespace OpenCharityAuction.UnitTests.Tests
         public async void Meal_AddMeal_POST_FAIL_Bad_ModelState_Should_Return_View()
         {
             // Arrange
-            var controller = new MealController(new TestAuctionService(), new TestUserService());
+            var controller = ControllerFactory.GetMealController(new TestUserService(), new TestAuctionService(), 3);
             var vm = new AddMealViewModel()
             {
                 Name = "TEST",
