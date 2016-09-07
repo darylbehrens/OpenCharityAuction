@@ -50,19 +50,12 @@
                     await AuctionService.GetEventById(eventId.Value, x => thisEvent = x);
                     {
                         <div class="col-md-12 headertext">
-                            <h3>@thisEvent.EventName @thisEvent.EventDate.ToString("MM/dd/yyyy")</h3>
+                            <h3>@thisEvent.EventName - @thisEvent.EventDate.ToString("MMMM dd, yyyy")</h3>
                         </div> 
-
                     }
-
-
-
                 }
             }
-
         </header>
-
-
 
         @RenderBody()
         <hr />

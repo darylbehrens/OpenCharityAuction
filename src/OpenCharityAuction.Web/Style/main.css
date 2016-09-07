@@ -71,3 +71,9 @@ td{
     margin-top: 4px;
     margin-left: 1px
 }
+
+.eventtable{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}

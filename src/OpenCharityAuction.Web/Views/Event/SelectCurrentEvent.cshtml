@@ -1,40 +1,42 @@
-﻿@model SelectCurrentEventViewModel
-
-@{
+﻿@{
     ViewData["Title"] = "Select Current Event";
 }
 
 <h2>@ViewData["Title"]</h2>
 <h4>@ViewData["Error"]</h4>
-<form asp-controller="Event" asp-action="SelectCurrentEvent" method="post" class="form-horizontal" id="form">
 
-    <div class="form-group">
-        @if (Model.Events.Count > 0)
-        {
-            <table>
-                <tr>
-                    <th>Event Name</th>
-                    <th>Event Date</th>
-                    <th>Select</th>
-                </tr>
-                @foreach (var ev in Model.Events)
-                {
-                    <tr>
-                        <td>@ev.EventName</td>
-                        <td>@ev.EventDate.Date.ToString("MM/dd/yyyy")</td>
-                        <td>
-                            <input type="radio" name="eventId" value="@ev.Id">Select
-                        </td>
-                    </tr>
-                }
-            </table>
-        }
-        </div>
-        <div class="col-md-12">
-            <input type="submit" id="button" />
-        </div>
-    </form>
-    @section Scripts {
-        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-        <script src="~/scripts/main.js" type="text/javascript"></script>
-    }
+<div ng-app="search" ng-controller="EventSearchController" ng-cloak>
+    <hr />
+    <div class="row">
+        <div class="col-md-1"><h4>Search</h4></div>
+        <div class="col-md-1"><input type="text" ng-model="query" /></div>
+    </div>
+    <table class="table table-striped eventtable table-bordered">
+        <thead>
+            <tr>
+                <th ng-cloak>Event Name</th>
+                <th>Event Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in items | filter:query | orderBy:'-eventDate'">
+                <td>{{item.eventName}}</td>
+                <td>
+                    {{item.eventDate | date:'longDate'}}
+                </td>
+
+                <td class="col-md-1">
+                    <form asp-action="SelectCurrentEvent" asp-controller="Event">
+                        <input type="hidden" name="eventId" value="{{item.id}}" />
+                        <input type="submit" value="Select">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/scripts/angular/search/search.js" type="text/javascript"></script>
+}
