@@ -24,8 +24,9 @@ namespace OpenCharityAuction.Web.Controllers
         }
 
         // GET: /<controller>/
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string errorMessage = null)
         {
+            ViewData["ErrorMessage"] = errorMessage;
             if (UserService.GetCurrentUsersActiveEvent().Result.HasValue)
             {
                 return View("Index");

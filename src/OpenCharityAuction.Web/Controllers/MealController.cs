@@ -13,6 +13,7 @@ using OpenCharityAuction.Entities.Models;
 namespace OpenCharityAuction.Web.Controllers
 {
     [Authorize]
+    [ServiceFilter(typeof(EventRequiredFilter))]
     public class MealController : Controller
     {
         private readonly IAuctionService AuctionService;
@@ -38,6 +39,7 @@ namespace OpenCharityAuction.Web.Controllers
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(EventRequiredFilter))]
         public async Task<IActionResult> AddMeal(AddMealViewModel vm)
         {
             if (ModelState.IsValid)

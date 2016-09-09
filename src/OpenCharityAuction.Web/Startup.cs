@@ -47,6 +47,9 @@ namespace OpenCharityAuction.Web
             // Auction Data Service For Injection
             services.AddTransient<Models.Interfaces.IAuctionService, Models.Services.AuctionService>();
 
+            // For Event Required Filter
+            services.AddSingleton<EventRequiredFilter>();
+
             SetUpDatabase(services);
 
             

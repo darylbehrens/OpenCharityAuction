@@ -8,6 +8,7 @@ using System.Security.Claims;
 using OpenCharityAuction.Web.Models.Interfaces;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
+using OpenCharityAuction.Entities.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -53,6 +54,20 @@ namespace OpenCharityAuction.Web.Controllers
             }
             return View("AddEvent", model);
 
+        }
+
+        public async Task<IActionResult> EditEvent(int id, string errorMessage = null)
+        {
+            Event dbEvent = new Event();
+            await AuctionService.GetEventById(id, ev => dbEvent = ev);
+            EditEventViewModel editEventVm = new EditEventViewModel()
+            {
+                Id = id,
+                EventName = dbEvent.EventName,
+                EventDate = dbEvent.EventDate
+            };
+            ViewData["ErrorMessage"] = errorMessage;
+            return View("EditEvent", editEventVm);
         }
 
         public IActionResult SearchEvent()

@@ -148,5 +148,42 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.Equal("Event", castedResult.ControllerName);
             Assert.Equal("Active Event Changed", castedResult.RouteValues["successMessage"]);
         }
+
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public void Event_SearchEvent_GET_PASS_Should_Return_View()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+
+            // Assert
+            var result = controller.SearchEvent();
+
+            // Act
+            Assert.IsType<ViewResult>(result);
+            var castedResult = result as ViewResult;
+            Assert.Equal("SearchEvent", castedResult.ViewName);
+        }
+
+        [Fact]
+        [Trait("TestType", "Unit")]
+        public async void Event_Edit_Event_GET_PASS_Should_Return_View()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+
+            // Assert
+            var result = await controller.EditEvent(1);
+
+            // Act
+            Assert.IsType<ViewResult>(result);
+            var castedResult = result as ViewResult;
+            Assert.Equal("EditEvent", castedResult.ViewName);
+            Assert.IsType<EditEventViewModel>(castedResult.Model);
+            EditEventViewModel vm = castedResult.Model as EditEventViewModel;
+            Assert.Equal(1, vm.Id);
+        }
+
+    }
     }
 }
