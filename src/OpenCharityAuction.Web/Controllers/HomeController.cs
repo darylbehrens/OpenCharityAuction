@@ -37,11 +37,11 @@ namespace OpenCharityAuction.Web.Controllers
                 await AuctionService.GetEvents(ev => events = ev);
                 if (events.Count == 0)
                 {
-                    return RedirectToAction("AddEvent", "Event");
+                    return RedirectToAction("AddEvent", "Event", new { errorMessage = "You Must Create An Event First" });
                 }
                 else
                 {
-                    return RedirectToAction("SelectCurrentEvent", "Event");
+                    return RedirectToAction("SelectCurrentEvent", "Event", new { errorMessage = "You Must Select A Current Event" });
                 }
 
             }

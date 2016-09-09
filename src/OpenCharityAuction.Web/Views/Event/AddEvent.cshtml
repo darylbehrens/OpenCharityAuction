@@ -5,6 +5,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<h4 class="has-error">@ViewData["ErrorMessage"]</h4>
 <form asp-controller="Event" asp-action="AddEvent" method="post" class="form-horizontal", onsubmit="disableButton();" id="form">
     @Html.Partial("EventFormPartial", Model)
     <div class="col-md-offset-2 col-md-10">
@@ -12,11 +13,9 @@
     </div>
 </form>
 @section Scripts {
-    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script>
         $(document).ready(function () {
             $("#EventDate").datepicker();
         });
     </script>
-    <script src="~/scripts/main.js" type="text/javascript"></script>
 }

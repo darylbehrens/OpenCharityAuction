@@ -74,4 +74,10 @@ td{
 
 .eventtable{
     width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.has-error{
+    color: red;
 }

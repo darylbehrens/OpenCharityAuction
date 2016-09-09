@@ -3,7 +3,7 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<h4>@ViewData["Error"]</h4>
+<h4 class="has-error">@ViewData["ErrorMessage"]</h4>
 
 <div ng-app="search" ng-controller="EventSearchController" ng-cloak>
     <hr />
@@ -11,7 +11,7 @@
         <div class="col-md-1"><h4>Search</h4></div>
         <div class="col-md-1"><input type="text" ng-model="query" /></div>
     </div>
-    <table class="table table-striped eventtable table-bordered">
+    <table class="table table-striped table-bordered">
         <thead>
             <tr>
                 <th ng-cloak>Event Name</th>

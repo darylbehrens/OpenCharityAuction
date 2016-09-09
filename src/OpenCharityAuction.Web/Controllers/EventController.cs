@@ -32,8 +32,9 @@ namespace OpenCharityAuction.Web.Controllers
             return View("Index");
         }
 
-        public IActionResult AddEvent()
+        public IActionResult AddEvent(string errorMessage = null)
         {
+            ViewData["ErrorMessage"] = errorMessage;
             return View("AddEvent");
         }
 
@@ -77,7 +78,7 @@ namespace OpenCharityAuction.Web.Controllers
 
         public IActionResult SelectCurrentEvent(string errorMessage = null)
         {
-            ViewData["Error"] = errorMessage;
+            ViewData["ErrorMessage"] = errorMessage;
             return View("SelectCurrentEvent");
         }
 
