@@ -48,30 +48,7 @@ namespace OpenCharityAuction.UnitTests.Tests
             var castedResult = result as ViewResult;
             Assert.Equal("AddAdmissionTicket", castedResult.ViewName);
         }
-
-        [Fact]
-        [Trait(TestType, Unit)]
-        public async void AdmissionTicket_AddAdmissionTicket_POST_FAIL_No_Event_Should_Return_Redirect()
-        {
-            // Arrange
-            var controller = new AdmissionTicketController(new TestUserService(), new TestAuctionService());
-            var vm = new AddAdmissionTicketViewModel()
-            {
-                Cost = 10M,
-                Name = "TEST",
-
-            };
-
-            // Act
-            var result = await controller.AddAdmissionTicket(vm);
-
-            // Assert
-            Assert.IsType<RedirectToActionResult>(result);
-            var castedResult = result as RedirectToActionResult;
-            Assert.Equal("AddAdmissionTicket", castedResult.ActionName);
-            Assert.Equal("You must have an active event before you can add tickets", castedResult.RouteValues["errorMessage"]);
-        }
-
+        
         [Fact]
         [Trait(TestType, Unit)]
         public async void AdmissionTicket_AddAdmissionTicket_POST_FAIL_Bad_ModelState_Should_Return_View()

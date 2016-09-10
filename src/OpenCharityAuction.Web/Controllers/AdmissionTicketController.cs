@@ -15,6 +15,8 @@ using OpenCharityAuction.Entities.Models;
 namespace OpenCharityAuction.Web.Controllers
 {
 
+    [Authorize]
+    [ServiceFilter(typeof(EventRequiredFilter))]
     public class AdmissionTicketController : Controller
     {
         private readonly IUserService UserService;
@@ -45,22 +47,15 @@ namespace OpenCharityAuction.Web.Controllers
             if (ModelState.IsValid)
             {
                 var eventId = await UserService.GetCurrentUsersActiveEvent();
-                if (eventId != null)
+                AdmissionTicket ticket = new AdmissionTicket()
                 {
-                    AdmissionTicket ticket = new AdmissionTicket()
-                    {
-                        Name = vm.Name,
-                        Cost = vm.Cost,
-                        CreatedBy = UserService.GetUserId(),
-                        EventId = eventId.Value
-                    };
-                    await AuctionService.AddAdmissionTicket(ticket);
-                    return RedirectToAction("Index", "AdmissionTicket", new { successMessage = "Admission Ticket Added" });
-                }
-                else
-                {
-                    return RedirectToAction("AddAdmissionTicket", new { errorMessage = "You must have an active event before you can add tickets" });
-                }
+                    Name = vm.Name,
+                    Cost = vm.Cost,
+                    CreatedBy = UserService.GetUserId(),
+                    EventId = eventId.Value
+                };
+                await AuctionService.AddAdmissionTicket(ticket);
+                return RedirectToAction("Index", "AdmissionTicket", new { successMessage = "Admission Ticket Added" });
             }
             return View("AddAdmissionTicket", vm);
         }

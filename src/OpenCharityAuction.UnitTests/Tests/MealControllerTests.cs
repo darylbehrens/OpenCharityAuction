@@ -68,28 +68,6 @@ namespace OpenCharityAuction.UnitTests.Tests
 
         [Fact]
         [Trait(TestType, Unit)]
-        public async void Meal_AddMeal_POST_FAIL_No_Event_Should_Return_Redirect()
-        {
-            // Arrange
-            var controller = ControllerFactory.GetMealController(new TestUserService(), new TestAuctionService());
-            AddMealViewModel vm = new AddMealViewModel()
-            {
-                Name = "Turkey",
-                Description = "Delicious Turkey with Butter Cream Frosting"
-            };
-
-            // Act
-            var result = await controller.AddMeal(vm);
-
-            // Assert
-            Assert.IsType<RedirectToActionResult>(result);
-            var castedResult = result as RedirectToActionResult;
-            Assert.Equal("AddMeal", castedResult.ActionName);
-            Assert.Equal("You must have an active event before you can add meals", castedResult.RouteValues["errorMessage"]);
-        }
-
-        [Fact]
-        [Trait(TestType, Unit)]
         public async void Meal_AddMeal_POST_FAIL_Bad_ModelState_Should_Return_View()
         {
             // Arrange
@@ -165,30 +143,7 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.Equal("Meal", castedResult.ControllerName);
             Assert.Equal("Meal Updated", castedResult.RouteValues["successMessage"]);
         }
-
-        [Fact]
-        [Trait(TestType, Unit)]
-        public async void Meal_EditMeal_POST_FAIL_No_Event_Should_Return_Redirect()
-        {
-            // Arrange
-            var controller = ControllerFactory.GetMealController(new TestUserService(), new TestAuctionService());
-            EditMealViewModel vm = new EditMealViewModel()
-            {
-                Id = 1,
-                Name = "Turkey",
-                Description = "Delicious Turkey with Butter Cream Frosting"
-            };
-
-            // Act
-            var result = await controller.EditMeal(vm);
-
-            // Assert
-            Assert.IsType<RedirectToActionResult>(result);
-            var castedResult = result as RedirectToActionResult;
-            Assert.Equal("EditMeal", castedResult.ActionName);
-            Assert.Equal("You must have an active event before you can edit meals", castedResult.RouteValues["errorMessage"]);
-        }
-
+        
         [Fact]
         [Trait(TestType, Unit)]
         public async void Meal_EditMeal_POST_FAIL_Bad_ModelState_Should_Return_View()

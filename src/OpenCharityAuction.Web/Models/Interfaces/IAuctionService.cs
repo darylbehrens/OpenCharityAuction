@@ -14,6 +14,8 @@ namespace OpenCharityAuction.Web.Models.Interfaces
 
         Task GetEventById(int id, Action<Event> callback);
 
+        Task UpdateEvent(Event ev);
+
         Task AddAdmissionTicket(AdmissionTicket newAdmissionTicket, Action<AdmissionTicket> callback = null);
 
         Task GetMeals(Action<List<Meal>> callback, string nameFilter = null);

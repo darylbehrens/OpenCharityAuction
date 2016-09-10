@@ -11,6 +11,7 @@ using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using static OpenCharityAuction.UnitTests.Constants;
 
 namespace OpenCharityAuction.UnitTests.Tests
 {
@@ -184,6 +185,55 @@ namespace OpenCharityAuction.UnitTests.Tests
             Assert.Equal(1, vm.Id);
         }
 
+
+        [Fact]
+        [Trait(TestType, Unit)]
+        public async void Meal_EditEvent_POST_PASS_Should_Return_Redirect()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+            EditEventViewModel vm = new EditEventViewModel()
+            {
+                EventDate = DateTime.UtcNow,
+                EventName = "TEST",
+                Id = 1
+            };
+
+            // Act
+            var result = await controller.EditEvent(vm);
+
+            // Assert
+            Assert.IsType<RedirectToActionResult>(result);
+            var castedResult = result as RedirectToActionResult;
+            Assert.Equal("Index", castedResult.ActionName);
+            Assert.Equal("Event", castedResult.ControllerName);
+            Assert.Equal("Event Updated", castedResult.RouteValues["successMessage"]);
+        }
+
+        [Fact]
+        [Trait(TestType, Unit)]
+        public async void Meal_EditEvent_POST_FAIL_Bad_ModelState_Should_Return_View()
+        {
+            // Arrange
+            var controller = new EventController(new TestAuctionService(), new TestUserService());
+            EditEventViewModel vm = new EditEventViewModel()
+            {
+                EventDate = DateTime.UtcNow,
+                EventName = "TEST",
+                Id = 1
+            };
+            controller.ModelState.AddModelError("ERROR", "ERROR");
+
+            // Act
+            var result = await controller.EditEvent(vm);
+
+            // Assert
+            Assert.IsType<ViewResult>(result);
+            var castedResult = result as ViewResult;
+            Assert.Equal("EditEvent", castedResult.ViewName);
+            Assert.IsType<EditEventViewModel>(castedResult.Model);
+        }
     }
-    }
+
+
 }

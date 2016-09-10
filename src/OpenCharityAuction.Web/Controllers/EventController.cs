@@ -49,12 +49,11 @@ namespace OpenCharityAuction.Web.Controllers
                     EventName = model.EventName,
                     CreatedBy = UserService.GetUserId()
                 };
-                Entities.Models.Event testEvent;
+                Event testEvent;
                 await AuctionService.AddEvent(newEvent, ev => testEvent = ev);
                 return RedirectToAction("Index", "Event", new { successMessage = "Event Added" });
             }
             return View("AddEvent", model);
-
         }
 
         public async Task<IActionResult> EditEvent(int id, string errorMessage = null)
@@ -69,6 +68,24 @@ namespace OpenCharityAuction.Web.Controllers
             };
             ViewData["ErrorMessage"] = errorMessage;
             return View("EditEvent", editEventVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditEvent(EditEventViewModel vm)
+        {
+            if(ModelState.IsValid)
+            {
+                var eventId = await UserService.GetCurrentUsersActiveEvent();
+                Event ev = new Event()
+                {
+                    Id = vm.Id,
+                    EventName = vm.EventName,
+                    EventDate = vm.EventDate.Value
+                };
+                await AuctionService.UpdateEvent(ev);
+                return RedirectToAction("Index", "Event", new { successMessage = "Event Updated" });
+            }
+            return View("EditEvent", vm);
         }
 
         public IActionResult SearchEvent()

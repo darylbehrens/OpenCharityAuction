@@ -17,7 +17,7 @@ namespace OpenCharityAuction.Web.Controllers
     public class MealController : Controller
     {
         private readonly IAuctionService AuctionService;
-        private readonly IUserService UserService; 
+        private readonly IUserService UserService;
 
         public MealController(IAuctionService auctionService, IUserService userService)
         {
@@ -31,7 +31,7 @@ namespace OpenCharityAuction.Web.Controllers
             ViewData["SuccessMessage"] = successMessage;
             return View("Index");
         }
-        
+
         public IActionResult AddMeal(string errorMessage = null)
         {
             ViewData["ErrorMessage"] = errorMessage;
@@ -45,22 +45,15 @@ namespace OpenCharityAuction.Web.Controllers
             if (ModelState.IsValid)
             {
                 var eventId = await UserService.GetCurrentUsersActiveEvent();
-                if (eventId != null)
+                Meal meal = new Meal()
                 {
-                    Meal meal = new Meal()
-                    {
-                        Name = vm.Name,
-                        Description = vm.Description,
-                        CreatedBy = UserService.GetUserId(),
-                        EventId = eventId.Value
-                    };
-                    await AuctionService.AddMeal(meal);
-                    return RedirectToAction("Index", "Meal", new { successMessage = "New Meal Added" });
-                }
-                else
-                {
-                    return RedirectToAction("AddMeal", new { errorMessage = "You must have an active event before you can add meals" });
-                }
+                    Name = vm.Name,
+                    Description = vm.Description,
+                    CreatedBy = UserService.GetUserId(),
+                    EventId = eventId.Value
+                };
+                await AuctionService.AddMeal(meal);
+                return RedirectToAction("Index", "Meal", new { successMessage = "New Meal Added" });
             }
             return View("AddMeal", vm);
         }
@@ -86,21 +79,14 @@ namespace OpenCharityAuction.Web.Controllers
             if (ModelState.IsValid)
             {
                 var eventId = await UserService.GetCurrentUsersActiveEvent();
-                if (eventId != null)
+                Meal meal = new Meal()
                 {
-                    Meal meal = new Meal()
-                    {
-                        Id = vm.Id,
-                        Name = vm.Name,
-                        Description = vm.Description
-                    };
-                    await AuctionService.UpdateMeal(meal);
-                    return RedirectToAction("Index", "Meal", new { successMessage = "Meal Updated" });
-                }
-                else
-                {
-                    return RedirectToAction("EditMeal", new { errorMessage = "You must have an active event before you can edit meals" });
-                }
+                    Id = vm.Id,
+                    Name = vm.Name,
+                    Description = vm.Description
+                };
+                await AuctionService.UpdateMeal(meal);
+                return RedirectToAction("Index", "Meal", new { successMessage = "Meal Updated" });
             }
             return View("EditMeal", vm);
         }

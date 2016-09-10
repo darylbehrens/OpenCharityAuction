@@ -81,5 +81,10 @@ namespace OpenCharityAuction.UnitTests.Models.Services
                 EventId = 1
             }));
         }
+
+        public Task UpdateEvent(Event ev)
+        {
+            return Task.Run(() => { });
+        }
     }
 }

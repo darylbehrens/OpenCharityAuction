@@ -54,6 +54,15 @@ namespace OpenCharityAuction.Web.Models.Services
             callback(await AuctionContext.Events.Where(x => x.Id == id).FirstOrDefaultAsync());
         }
 
+        public async Task UpdateEvent(Event ev)
+        {
+            var eventToUpdate = await AuctionContext.Events.Where(x => x.Id == ev.Id).FirstOrDefaultAsync();
+            eventToUpdate.EventName = ev.EventName;
+            eventToUpdate.EventDate = ev.EventDate;
+            AuctionContext.Entry(eventToUpdate).State = EntityState.Modified;
+            await AuctionContext.SaveChangesAsync();
+        }
+
         public async Task AddMeal(Meal newMeal, Action<Meal> callback = null)
         {
             newMeal.CreateDate = DateTime.UtcNow;
