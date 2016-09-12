@@ -6,19 +6,21 @@ using System.Threading.Tasks;
 
 namespace OpenCharityAuction.Entities.Models
 {
-    public class BidderAdmissionTicket
+    public class Attendee
     {
         [Required]
         public int Id { get; set; }
 
         [Required]
-        public int BidderId { get; set; }
+        public string FirstName { get; set; }
+
+        [Required]
+        public string LastName { get; set; }
+
+        [Required]
+        public int MealId { get; set; }
 
         [Required]
         public int AdmissionTicketId { get; set; }
-
-        public virtual Bidder Bidder { get; set; }
-
-        public virtual AdmissionTicket AdmissionTicket { get; set; }
     }
 }

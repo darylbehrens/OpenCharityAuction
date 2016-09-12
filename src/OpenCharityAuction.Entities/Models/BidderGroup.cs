@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenCharityAuction.Entities.Models
 {
-    public class Bidder
+    public class BidderGroup
     {
         [Required]
         public int Id { get; set; }
@@ -18,10 +18,7 @@ namespace OpenCharityAuction.Entities.Models
         public string CreatedBy { get; set; }
 
         [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         public string Address { get; set; }
 

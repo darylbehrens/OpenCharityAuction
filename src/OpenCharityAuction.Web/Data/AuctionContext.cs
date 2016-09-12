@@ -21,9 +21,10 @@ namespace OpenCharityAuction.Web.Data
         public DbSet<Entities.Models.Event> Events { get; set; }
         public DbSet<Entities.Models.AdmissionTicket> AdmissionTickets { get; set; }
         public DbSet<Entities.Models.Meal> Meals { get; set; }
-        public DbSet<Entities.Models.Bidder> Bidders { get; set; }
-        public DbSet<Entities.Models.BidderAdmissionTicket> BidderAdmissionTickets { get; set; }
-        public DbSet<Entities.Models.BidderMeal> BidderMeals { get; set; }
+        public DbSet<Entities.Models.BidderGroup> Bidders { get; set; }
+        public DbSet<Entities.Models.AttendeeAdmissionTicket> BidderAdmissionTickets { get; set; }
+        public DbSet<Entities.Models.AttendeeMeal> BidderMeals { get; set; }
+        public DbSet<Entities.Models.Attendee> Attendees { get; set; }
     }
 
 }

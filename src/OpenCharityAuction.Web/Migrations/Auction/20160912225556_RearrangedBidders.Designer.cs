@@ -8,9 +8,10 @@ using OpenCharityAuction.Web.Data;
 namespace OpenCharityAuction.Web.Migrations.Auction
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20160912225556_RearrangedBidders")]
+    partial class RearrangedBidders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -40,26 +41,6 @@ namespace OpenCharityAuction.Web.Migrations.Auction
                     b.HasIndex("EventId");
 
                     b.ToTable("AdmissionTickets");
-                });
-
-            modelBuilder.Entity("OpenCharityAuction.Entities.Models.Attendee", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("AdmissionTicketId");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired();
-
-                    b.Property<string>("LastName")
-                        .IsRequired();
-
-                    b.Property<int>("MealId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Attendees");
                 });
 
             modelBuilder.Entity("OpenCharityAuction.Entities.Models.AttendeeAdmissionTicket", b =>

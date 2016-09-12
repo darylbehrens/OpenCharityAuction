@@ -8,9 +8,10 @@ using OpenCharityAuction.Web.Data;
 namespace OpenCharityAuction.Web.Migrations.Auction
 {
     [DbContext(typeof(AuctionContext))]
-    partial class AuctionContextModelSnapshot : ModelSnapshot
+    [Migration("20160912233852_AddAtendee")]
+    partial class AddAtendee
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenCharityAuction.Entities.Models
 {
-    public class BidderMeal
+    public class AttendeeMeal
     {
         [Required]
         public int Id { get; set; }
@@ -17,7 +17,7 @@ namespace OpenCharityAuction.Entities.Models
         [Required]
         public int MealId { get; set; }
 
-        public virtual Bidder Bidder { get; set; }
+        public virtual BidderGroup Bidder { get; set; }
 
         public virtual Meal Meal { get; set; }
 
